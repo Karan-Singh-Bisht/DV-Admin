@@ -1,13 +1,12 @@
-import { PieChart, Pie, Cell, Tooltip } from "recharts";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 const data = [
   { name: "A", value: 25 },
   { name: "B", value: 15 },
   { name: "C", value: 20 },
   { name: "D", value: 8 },
-]; // Total = 68 (you can adjust accordingly)
+];
 
-// Custom tooltip component
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
@@ -19,9 +18,7 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
-const COLORS = ["#FF6B6B", "#FF8C00", "#00D084", "#4D96FF"]; // Gradient-like effect
-
-const RADIAN = Math.PI / 180;
+const COLORS = ["#FF6B6B", "#FF8C00", "#00D084", "#4D96FF"];
 
 const renderCenterText = () => (
   <text
@@ -29,7 +26,6 @@ const renderCenterText = () => (
     y="50%"
     textAnchor="middle"
     dominantBaseline="middle"
-    className="text-center"
     fontSize="20"
     fill="#fff"
   >
@@ -44,36 +40,44 @@ const renderCenterText = () => (
 
 const DevicePieChart = () => {
   return (
-    <div className="flex justify-center items-center h-[300px] bg-[#0c1027]">
-      <PieChart width={270} height={270}>
-        <defs>
-          <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#4D96FF" />
-            <stop offset="25%" stopColor="#00D084" />
-            <stop offset="50%" stopColor="#FF6B6B" />
-            <stop offset="75%" stopColor="#FF8C00" />
-            <stop offset="100%" stopColor="#4D96FF" />
-          </linearGradient>
-        </defs>
-        <Tooltip content={CustomTooltip} />
-        <Pie
-          data={data}
-          cx="50%"
-          cy="50%"
-          innerRadius={80}
-          outerRadius={100}
-          startAngle={90}
-          endAngle={-270}
-          paddingAngle={1}
-          dataKey="value"
-          stroke="none"
-        >
-          {data.map((_, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-        {renderCenterText()}
-      </PieChart>
+    <div className="h-[100px] sm:h-[300px] w-full bg-[#0c1027] flex justify-center items-center">
+      <ResponsiveContainer width={270} height={270}>
+        <PieChart>
+          <defs>
+            <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#4D96FF" />
+              <stop offset="25%" stopColor="#00D084" />
+              <stop offset="50%" stopColor="#FF6B6B" />
+              <stop offset="75%" stopColor="#FF8C00" />
+              <stop offset="100%" stopColor="#4D96FF" />
+            </linearGradient>
+          </defs>
+
+          <Tooltip content={CustomTooltip} />
+
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            innerRadius={80}
+            outerRadius={100}
+            startAngle={90}
+            endAngle={-270}
+            paddingAngle={1}
+            dataKey="value"
+            stroke="none"
+          >
+            {data.map((_, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+              />
+            ))}
+          </Pie>
+
+          {renderCenterText()}
+        </PieChart>
+      </ResponsiveContainer>
     </div>
   );
 };
