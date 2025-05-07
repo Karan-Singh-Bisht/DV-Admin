@@ -128,7 +128,7 @@ const SidebarComponent = () => {
             />
             <Item
               id="5"
-              title="Verification"
+              title="User Verification"
               to="/verification"
               icon={<MdVerifiedUser />}
               selected={selected}
@@ -136,6 +136,34 @@ const SidebarComponent = () => {
             />
             <Item
               id="6"
+              title={
+                <>
+                  {/* Pages Verification <br /> (Business) */}
+                  Business Verification
+                </>
+              }
+              to="/businessVerification"
+              icon={<MdVerifiedUser />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              id="7"
+              title={
+                <>
+                  {/* Pages Verification <br /> (Creator) */}
+                  Creator Verification
+                </>
+              }
+              to="/creatorVerification"
+              icon={<MdVerifiedUser />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              id="8"
               title="Report/Block"
               to="/report"
               icon={<MdOutlineReportProblem />}
@@ -143,7 +171,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="7"
+              id="9"
               title="Archieve"
               to="/faq"
               icon={<FaArchive />}
@@ -152,7 +180,7 @@ const SidebarComponent = () => {
             />
             <h3 className="text-sm ml-3 mt-2 text-gray-400">CONTENT HUB</h3>
             <Item
-              id="8"
+              id="10"
               title="Buddies Posts"
               to="/buddyPosts"
               icon={<ImFeed />}
@@ -160,7 +188,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="9"
+              id="11"
               title="Page Posts"
               to="/pagePosts"
               icon={<FaArchive />}
@@ -168,7 +196,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="10"
+              id="12"
               title="Report/Block"
               to="/faq"
               icon={<MdOutlineReportProblem />}
@@ -176,7 +204,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="11"
+              id="13"
               title="Archieve"
               to="/faq"
               icon={<FaArchive />}
@@ -186,7 +214,7 @@ const SidebarComponent = () => {
 
             <h3 className="text-sm ml-3 mt-2 text-gray-400">VISIONFEED HUB</h3>
             <Item
-              id="12"
+              id="14"
               title="Feeds"
               to="/feeds"
               icon={<ImFeed />}
@@ -194,7 +222,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="13"
+              id="15"
               title="Report/Block"
               to="/pie"
               icon={<MdOutlineReportProblem />}
@@ -202,7 +230,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="14"
+              id="16"
               title="Archieve"
               to="/faq"
               icon={<FaArchive />}
@@ -211,7 +239,7 @@ const SidebarComponent = () => {
             />
             <h3 className="text-sm ml-3 mt-2 text-gray-400">MAPO HUB</h3>
             <Item
-              id="15"
+              id="17"
               title="Buddies Mapo"
               to="/line"
               icon={<FaHome />}
@@ -219,7 +247,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="16"
+              id="18"
               title="PopPins"
               to="/geography"
               icon={<FaHome />}
@@ -227,7 +255,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="17"
+              id="19"
               title="Infocards"
               to="/geography"
               icon={<FaHome />}
@@ -235,25 +263,8 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="18"
-              title="Places"
-              to="/geography"
-              icon={<FaHome />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              id="19"
-              title="Events"
-              to="/geography"
-              icon={<FaHome />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <h3 className="text-sm ml-3 mt-2 text-gray-400">SPACE HUB</h3>
-            <Item
               id="20"
-              title="Events"
+              title="Places"
               to="/geography"
               icon={<FaHome />}
               selected={selected}
@@ -267,8 +278,25 @@ const SidebarComponent = () => {
               selected={selected}
               setSelected={setSelected}
             />
+            <h3 className="text-sm ml-3 mt-2 text-gray-400">SPACE HUB</h3>
             <Item
               id="22"
+              title="Events"
+              to="/geography"
+              icon={<FaHome />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              id="23"
+              title="Events"
+              to="/geography"
+              icon={<FaHome />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              id="24"
               title="Events"
               to="/geography"
               icon={<FaHome />}

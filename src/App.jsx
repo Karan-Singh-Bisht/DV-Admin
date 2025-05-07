@@ -7,6 +7,7 @@ import Ecommerce from "./pages/eCommerce/Ecommerce";
 import Buddy from "./pages/buddies/Buddy";
 import Pages from "./pages/pages/Pages";
 import Verification from "./pages/verification/Verification";
+import VerificationDetails from "./pages/verification/VerificationDetails";
 import Report from "./pages/report/Report";
 import BuddyPost from "./pages/buddyPost/BuddyPost";
 import BuddyPostCardDetail from "./pages/buddyPost/BuddyPostCardDetail";
@@ -18,6 +19,10 @@ import BuddyDetails from "./pages/buddies/BuddyDetails";
 import PagesDetails from "./pages/pages/PagesDetails";
 import PagePostDetails from "./pages/pagePost/PagePostDetails";
 import PrivateRoute from "./pages/PrivateRoute";
+import BusinessVerification from "./pages/businessVerification/BusinessVerification";
+import BusinessVerificationDetails from "./pages/businessVerification/BusinessVerificationDetails";
+import CreatorVerification from "./pages/creatorVerification/CreatorVerification";
+import CreatorVerificationDetails from "./pages/creatorVerification/CreatorVerificationDetails";
 
 const App = () => {
   const location = useLocation();
@@ -47,7 +52,7 @@ const App = () => {
             element={
               // <PrivateRoute>
               <Dashboard />
-              // </PrivateRoute>
+              // {/* </PrivateRoute> */}
             }
           />
           <Route
@@ -103,6 +108,46 @@ const App = () => {
             element={
               // <PrivateRoute>
               <Verification />
+              // </PrivateRoute>
+            }
+          />
+          <Route
+            path="/verification/:userId"
+            element={
+              // <PrivateRoute>
+              <VerificationDetails />
+              // </PrivateRoute>
+            }
+          />
+          <Route
+            path="/businessVerification"
+            element={
+              // <PrivateRoute>
+              <BusinessVerification />
+              // </PrivateRoute>
+            }
+          />
+          <Route
+            path="/businessVerificationDetails/:pageId"
+            element={
+              // <PrivateRoute>
+              <BusinessVerificationDetails />
+              // </PrivateRoute>
+            }
+          />
+          <Route
+            path="/creatorVerification"
+            element={
+              // <PrivateRoute>
+              <CreatorVerification />
+              // </PrivateRoute>
+            }
+          />
+          <Route
+            path="/creatorVerificationDetails/:pageId"
+            element={
+              // <PrivateRoute>
+              <CreatorVerificationDetails />
               // </PrivateRoute>
             }
           />
