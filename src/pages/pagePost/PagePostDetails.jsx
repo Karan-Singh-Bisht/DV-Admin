@@ -10,17 +10,17 @@ const PagesPostDetails = ({ post }) => {
   // Sample static data – replace with dynamic `post` props as needed
   const postDetails = [
     { label: "PageId", value: "1" },
-    { label: "Pagetype", value: "Creator" },
-    { label: "Pagename", value: "DeVi" },
-    { label: "Username", value: "DV" },
-    { label: "Profession", value: "Boxer" },
-    { label: "Gender", value: "Female" },
-    { label: "Phone No.", value: "+91 7011106165" },
-    { label: "Email", value: "harsar@gmail.com" },
-    { label: "Bio", value: "Loves to dance" },
-    { label: "Website", value: "https://localhost:5050" },
-    { label: "Created at", value: post?.createdAt || "02-05-2024" },
-    { label: "Updated at", value: post?.createdAt || "02-05-2024" },
+    { label: "Name", value: "John Doe" },
+    { label: "Location", value: "New York" },
+    { label: "Category", value: ["Entertainment", "Music"] },
+    { label: "Claps", value: "400" },
+    { label: "Remarks", value: "50" },
+    { label: "Date", value: "10-02-2004" },
+    { label: "Collaborators", value: "Zomato" },
+    { label: "Music", value: "Xyz" },
+    { label: "Status", value: "Non-Sensitive" },
+    { label: "Spreads", value: "10" },
+    { label: "Rewrites", value: "20" },
   ];
 
   return (
@@ -43,7 +43,7 @@ const PagesPostDetails = ({ post }) => {
       <div className="flex flex-col lg:flex-row gap-6 items-center">
         <div className="flex-1 flex justify-center">
           <img
-            src={post?.imageUrl || "/picture.png"}
+            src={post?.media || "/picture.png"}
             alt="Post"
             className="rounded-lg object-contain max-h-128 h-[30vw] w-full lg:w-[100%]"
           />
@@ -60,7 +60,9 @@ const PagesPostDetails = ({ post }) => {
               >
                 <div className="font-semibold w-1/2">{item.label}</div>
                 <div className="w-full sm:w-1/2 text-gray-700">
-                  {item.value}
+                  {Array.isArray(item.value)
+                    ? item.value.join(", ")
+                    : item.value}
                 </div>
               </div>
             ))}

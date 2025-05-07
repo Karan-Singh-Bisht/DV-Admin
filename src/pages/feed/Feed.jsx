@@ -1,5 +1,5 @@
 import Header from "../../components/Header";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { IoSearchSharp } from "react-icons/io5";
 import FeedsCard from "../../components/FeedsCard";
@@ -31,13 +31,17 @@ const Feed = () => {
   const search = useLocation();
   const pageName = search.pathname.slice(1);
   const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
 
   return (
     <div className="p-4 min-h-screen">
       {/* Header + Button */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <Header pageName={pageName} title={"VisionFeed"} />
-        <button className="bg-blue-500 text-white py-2 px-4 font-semibold rounded-lg w-full md:w-[20%] lg:w-[20%] xl:w-[10%]">
+        <button
+          onClick={() => navigate("/feeds/create")}
+          className="bg-blue-500 text-white py-2 px-4 font-semibold rounded-lg w-full md:w-[20%] lg:w-[20%] xl:w-[10%]"
+        >
           Create Post
         </button>
       </div>

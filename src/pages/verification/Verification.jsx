@@ -11,7 +11,7 @@ const userDetails = [
     selfie: "",
     userType: "Individual",
     fullName: "Ronald Ragen",
-    aadharCard: "",
+    aadharCard: "/vite.svg",
     panCard: "",
     phoneNumber: "9012798393",
     verified: true,
@@ -22,7 +22,7 @@ const userDetails = [
     userType: "Individual",
     fullName: "Ronald Ragen",
     aadharCard: "",
-    panCard: "",
+    panCard: "/vite.svg",
     phoneNumber: "9012798393",
     verified: true,
   },
@@ -32,7 +32,7 @@ const userDetails = [
     userType: "Individual",
     fullName: "Ronald Ragen",
     aadharCard: "",
-    panCard: "",
+    panCard: "/tv.webp",
     phoneNumber: "9012798393",
     verified: true,
   },
@@ -96,8 +96,7 @@ const Verification = () => {
               <th className="p-3 uppercase">Selfie</th>
               <th className="p-3 uppercase">User Type</th>
               <th className="p-3 uppercase">Full Name</th>
-              <th className="p-3 uppercase">Aadhar Card</th>
-              <th className="p-3 uppercase">Pan Card</th>
+              <th className="p-3 uppercase">Doc Type</th>
               <th className="p-3 uppercase">Phone Number</th>
               <th className="p-3 uppercase">Verified</th>
               <th className="p-3 uppercase">Action</th>
@@ -128,16 +127,25 @@ const Verification = () => {
                 <td className="p-3">{userDetail.userType}</td>
                 <td className="p-3">{userDetail.fullName}</td>
                 <td className="p-3">
-                  <img
-                    src={`${userDetail?.aadharCard}` || `/vite.svg`}
-                    alt="aadharCard"
-                  ></img>
-                </td>
-                <td className="p-3">
-                  <img
-                    src={`${userDetail?.panCard}` || `/vite.svg`}
-                    alt="panCard"
-                  ></img>
+                  {userDetail.aadharCard ? (
+                    <div className="flex items-center gap-2">
+                      <img
+                        src={userDetail.aadharCard}
+                        className="object-cover w-10"
+                        alt="aadharCard"
+                      />
+                      <p>Aadhar</p>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <img
+                        src={userDetail.panCard}
+                        className="object-cover w-10"
+                        alt="PanCard"
+                      />
+                      <p>Pan</p>
+                    </div>
+                  )}
                 </td>
                 <td className="p-3">{userDetail.phoneNumber}</td>
                 <td className="p-3">

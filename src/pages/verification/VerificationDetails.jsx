@@ -3,17 +3,14 @@ import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
 const VerificationDetails = () => {
-  const images = [
-    { Selfie: "/vite.svg" },
-    { Aadhar: "/picture.png" },
-    { PanCard: "/tv.webp" },
-  ];
-  const [index, setIndex] = useState(0);
-  const navigate = useNavigate();
-
-  const switchImage = () => {
-    setIndex((prev) => (prev + 1) % images.length);
+  const images = {
+    Selfie: "/vite.svg",
+    Aadhar: "/picture.png",
+    PanCard: "/tv.webp",
   };
+
+  const [selectedImage, setSelectedImage] = useState("Selfie");
+  const navigate = useNavigate();
 
   const userDetails = [
     { label: "userId", value: "12345" },
@@ -26,8 +23,14 @@ const VerificationDetails = () => {
     { label: "Updated At", value: "05-05-2025" },
   ];
 
+  const getIdentityImage = () => {
+    if (images.Aadhar) return images.Aadhar;
+    if (images.PanCard) return images.PanCard;
+    return ""; // fallback
+  };
+
   return (
-    <div className="max-w-7xl mx-auto bg-white rounded-xl shadow-md p-6 mt-10">
+    <div className="relative max-w-7xl mx-auto bg-white rounded-xl shadow-md p-6 mt-10">
       {/* Header */}
       <div className="flex items-center justify-between border-b pb-4 mb-6 text-gray-700">
         <div className="flex items-center gap-3">
@@ -43,18 +46,36 @@ const VerificationDetails = () => {
       {/* Image & Details */}
       <div className="flex flex-col lg:flex-row gap-6 items-center">
         {/* Left Image Section */}
-        <div className="flex-1 flex flex-col relative items-center justify-center">
+        <div className="flex-1 flex flex-col relative items-center justify-center w-full">
           <img
-            src={Object.values(images[index])[0]}
-            alt={`Verification ${index + 1}`}
+            src={
+              selectedImage === "Selfie" ? images.Selfie : getIdentityImage()
+            }
+            alt={selectedImage}
             className="rounded-lg object-contain max-h-128 h-[30vw] w-full lg:w-[100%]"
           />
-          <button
-            onClick={switchImage}
-            className={`mt-4 px-4 py-2 bg-gray-200 absolute right-2 bottom-0 hover:bg-gray-300 rounded`}
-          >
-            {Object.keys(images[index])[0]}
-          </button>
+          <div className="flex gap-3 mt-4">
+            <button
+              onClick={() => setSelectedImage("Selfie")}
+              className={`px-4 py-2 rounded ${
+                selectedImage === "Selfie"
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 hover:bg-gray-300"
+              }`}
+            >
+              Authorized Selfie
+            </button>
+            <button
+              onClick={() => setSelectedImage("Identity")}
+              className={`px-4 py-2 rounded ${
+                selectedImage === "Identity"
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 hover:bg-gray-300"
+              }`}
+            >
+              Identity Doc
+            </button>
+          </div>
         </div>
 
         {/* Right Details Section */}
@@ -73,6 +94,22 @@ const VerificationDetails = () => {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Action Buttons at Bottom Right */}
+      <div className="absolute bottom-6 right-6 flex flex-wrap gap-3">
+        <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+          Approve
+        </button>
+        <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+          Reject
+        </button>
+        <button className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
+          Archive
+        </button>
+        <button className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800">
+          Delete
+        </button>
       </div>
     </div>
   );

@@ -3,17 +3,32 @@ import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
 const BusinessVerificationDetails = () => {
-  const images = [
-    { Selfie: "/admin-selfie.jpg" },
-    { IncorporationCertificate: "/incorporation-cert.jpg" },
-    { StartIndia: "/start-india.jpg" },
-    { PanCardMasked: "/pancard-masked.jpg" },
-  ];
-  const [index, setIndex] = useState(0);
   const navigate = useNavigate();
 
-  const switchImage = () => {
-    setIndex((prev) => (prev + 1) % images.length);
+  const images = {
+    selfie: "/vite.svg",
+    businessPhoto: "/business-photo.png",
+    documents: ["/vite.svg", "/masked-pan.png"].filter(Boolean),
+  };
+
+  const [selectedImage, setSelectedImage] = useState("selfie");
+
+  const getImageSrc = () => {
+    if (selectedImage === "selfie") return images.selfie;
+    if (selectedImage === "businessPhoto") return images.businessPhoto;
+    if (selectedImage === "businessDoc") {
+      // Find the incorporation document if it exists
+      const incorporationDoc = images.documents.find((doc) =>
+        doc.toLowerCase().includes("incorporation")
+      );
+
+      // Return incorporation doc if found, otherwise fall back to the first available document
+      return (
+        incorporationDoc ||
+        (images.documents.length > 0 ? images.documents[0] : "")
+      );
+    }
+    return "";
   };
 
   const businessDetails = [
@@ -35,7 +50,7 @@ const BusinessVerificationDetails = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto bg-white rounded-xl shadow-md p-6 mt-10">
+    <div className="max-w-7xl mx-auto bg-white relative rounded-xl shadow-md p-6 mt-10">
       {/* Header */}
       <div className="flex items-center justify-between border-b pb-4 mb-6 text-gray-700">
         <div className="flex items-center gap-3">
@@ -53,16 +68,42 @@ const BusinessVerificationDetails = () => {
         {/* Left Image Section */}
         <div className="flex-1 flex flex-col relative items-center justify-center">
           <img
-            src={Object.values(images[index])[0]}
-            alt={`Verification ${index + 1}`}
+            src={getImageSrc()}
+            alt="Verification"
             className="rounded-lg object-contain max-h-128 h-[30vw] w-full lg:w-[100%]"
           />
-          <button
-            onClick={switchImage}
-            className="mt-4 px-4 py-2 bg-gray-200 absolute right-2 bottom-0 hover:bg-gray-300 rounded"
-          >
-            {Object.keys(images[index])[0]}
-          </button>
+          <div className="mt-4 flex gap-2 flex-wrap justify-center">
+            <button
+              onClick={() => setSelectedImage("selfie")}
+              className={`px-3 py-1 rounded text-sm font-medium ${
+                selectedImage === "selfie"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+              }`}
+            >
+              Authorized Selfie
+            </button>
+            <button
+              onClick={() => setSelectedImage("businessPhoto")}
+              className={`px-3 py-1 rounded text-sm font-medium ${
+                selectedImage === "businessPhoto"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+              }`}
+            >
+              Business Photo
+            </button>
+            <button
+              onClick={() => setSelectedImage("businessDoc")}
+              className={`px-3 py-1 rounded text-sm font-medium ${
+                selectedImage === "businessDoc"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+              }`}
+            >
+              Business Doc
+            </button>
+          </div>
         </div>
 
         {/* Right Details Section */}
@@ -82,7 +123,7 @@ const BusinessVerificationDetails = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-4 mt-6">
+          <div className="flex gap-4 mt-6 justify-end">
             <button className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
               Approve
             </button>

@@ -14,15 +14,16 @@ import BuddyPostCardDetail from "./pages/buddyPost/BuddyPostCardDetail";
 import PagePost from "./pages/pagePost/PagePost";
 import Feed from "./pages/feed/Feed";
 import FeedDetails from "./pages/feed/FeedDetails";
+import FeedCreatePage from "./pages/feed/FeedCreatePage";
 import Login from "./pages/auth/Login";
 import BuddyDetails from "./pages/buddies/BuddyDetails";
 import PagesDetails from "./pages/pages/PagesDetails";
 import PagePostDetails from "./pages/pagePost/PagePostDetails";
-import PrivateRoute from "./pages/PrivateRoute";
 import BusinessVerification from "./pages/businessVerification/BusinessVerification";
 import BusinessVerificationDetails from "./pages/businessVerification/BusinessVerificationDetails";
 import CreatorVerification from "./pages/creatorVerification/CreatorVerification";
 import CreatorVerificationDetails from "./pages/creatorVerification/CreatorVerificationDetails";
+import PrivateRoute from "./pages/PrivateRoute";
 
 const App = () => {
   const location = useLocation();
@@ -204,6 +205,14 @@ const App = () => {
             element={
               // <PrivateRoute>
               <FeedDetails />
+              // </PrivateRoute>
+            }
+          />
+          <Route
+            path="/feeds/create"
+            element={
+              // <PrivateRoute>
+              <FeedCreatePage />
               // </PrivateRoute>
             }
           />

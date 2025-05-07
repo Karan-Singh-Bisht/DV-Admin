@@ -42,7 +42,7 @@ const ProductTable = ({ products }) => {
             <th className="p-3 uppercase">Avatar</th>
             <th className="p-3 uppercase">User Type</th>
             <th className="p-3 uppercase">Full Name</th>
-            <th className="p-3 uppercase">Username</th>
+            <th className="p-3 uppercase">Nick Name</th>
             <th className="p-3 uppercase">Phone</th>
             <th className="p-3 uppercase">Verified</th>
             <th className="p-3 uppercase">Action</th>

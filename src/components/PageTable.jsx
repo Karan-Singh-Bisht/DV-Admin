@@ -40,8 +40,8 @@ const ProductTable = ({ pages }) => {
             <th className="p-3 uppercase">Page ID</th>
             <th className="p-3 uppercase">Avatar</th>
             <th className="p-3 uppercase">Page Type</th>
-            <th className="p-3 uppercase">Full Name</th>
             <th className="p-3 uppercase">Page Name</th>
+            <th className="p-3 uppercase">User Name</th>
             <th className="p-3 uppercase">Category</th>
             <th className="p-3 uppercase">Verified</th>
             <th className="p-3 uppercase">Action</th>
