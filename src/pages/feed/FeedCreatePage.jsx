@@ -46,7 +46,6 @@ const FeedCreatePage = () => {
         <button className="text-2xl mb-2" onClick={() => navigate(-1)}>
           <IoMdArrowBack />
         </button>
-
         {/* URL Input */}
         <div className="flex flex-col sm:flex-row gap-2">
           <input
@@ -60,100 +59,22 @@ const FeedCreatePage = () => {
             Submit
           </button>
         </div>
-
         {/* If previewImage exists, display it on the left */}
-        {previewImage ? (
-          <div className="flex justify-center items-center w-full gap-4">
-            <div className="flex-1">
-              <img
-                src={previewImage}
-                alt="Preview"
-                className="w-full h-[25vw] rounded-md "
-              />
-            </div>
-
-            <div className="flex-1 space-y-4">
-              {/* <h1 className="text-center">OR</h1> */}
-
-              {/* Description */}
-              <input
-                type="text"
-                placeholder="Description"
-                className="w-full p-3 border rounded"
-              />
-
-              {/* Platform Name */}
-              <input
-                type="text"
-                placeholder="Platform Name"
-                value={platformName}
-                readOnly
-                className="w-full p-3 border rounded bg-gray-100 cursor-not-allowed"
-              />
-
-              {/* Platform Icons */}
-              <div className="flex flex-wrap justify-evenly items-center gap-4">
-                <span
-                  onClick={() => handlePlatformClick("DV")}
-                  className="font-medium cursor-pointer"
-                >
-                  DV
-                </span>
-                <FaLinkedin
-                  onClick={() => handlePlatformClick("LinkedIn")}
-                  className="text-blue-700 text-3xl cursor-pointer hover:scale-110"
-                />
-                <FaXTwitter
-                  onClick={() => handlePlatformClick("Twitter")}
-                  className="text-black text-3xl cursor-pointer hover:scale-110"
-                />
-                <FaInstagram
-                  onClick={() => handlePlatformClick("Instagram")}
-                  className="text-pink-600 text-3xl cursor-pointer hover:scale-110"
-                />
-                <FaYoutube
-                  onClick={() => handlePlatformClick("YouTube")}
-                  className="text-red-600 text-3xl cursor-pointer hover:scale-110"
-                />
-                <FaFacebook
-                  onClick={() => handlePlatformClick("Facebook")}
-                  className="text-blue-600 text-3xl cursor-pointer hover:scale-110"
-                />
-              </div>
-
-              {/* Other fields */}
-              <input
-                type="text"
-                placeholder="Username"
-                className="w-full p-3 border rounded"
-              />
-              <input
-                type="text"
-                placeholder="Location"
-                className="w-full p-3 border rounded"
-              />
-              <input
-                type="file"
-                className="w-full sm:w-1/2 p-3 border rounded"
-              />
-              <div className="flex flex-col sm:flex-row gap-2">
-                <input
-                  type="text"
-                  placeholder="Category"
-                  className="w-full sm:w-1/2 p-3 border rounded"
-                />
-                <input
-                  type="text"
-                  placeholder="SubCategory"
-                  className="w-full sm:w-1/2 p-3 border rounded"
-                />
-              </div>
-            </div>
+        <div className="flex justify-center items-center w-full gap-4">
+          <div className="flex-1 flex-col gap-2">
+            {/* <img
+              src={previewImage}
+              alt="Preview"
+              className="w-full h-[25vw] rounded-md "
+            /> */}
+            <input
+              type="file"
+              className="w-full h-[20vw] p-3  border rounded"
+            />
           </div>
-        ) : (
-          <div className="space-y-4">
-            {/* When there's no previewImage, keep the original design */}
-            <h1 className="text-center">OR</h1>
+
+          <div className="flex-1 space-y-4">
+            {/* <h1 className="text-center">OR</h1> */}
 
             {/* Description */}
             <input
@@ -212,7 +133,7 @@ const FeedCreatePage = () => {
               placeholder="Location"
               className="w-full p-3 border rounded"
             />
-            <input type="file" className="w-full sm:w-1/4 p-3 border rounded" />
+            <div className="w-full flex justify-end"></div>
             <div className="flex flex-col sm:flex-row gap-2">
               <input
                 type="text"
@@ -226,7 +147,7 @@ const FeedCreatePage = () => {
               />
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
