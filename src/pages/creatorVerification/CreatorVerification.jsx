@@ -48,7 +48,7 @@ const CreatorVerification = () => {
       <div className="flex justify-between items-center">
         <Header
           pageName={pageName}
-          title={"Creator Page Verification"}
+          title={"users Hub"}
           subtitle={"Welcome To Creator Page Verification"}
         />
       </div>

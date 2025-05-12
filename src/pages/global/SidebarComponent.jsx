@@ -2,14 +2,22 @@ import { useState } from "react";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
+import { FaMapLocationDot } from "react-icons/fa6";
 import { MdPeopleAlt } from "react-icons/md";
 import { IoIosPaper } from "react-icons/io";
 import { MdVerifiedUser } from "react-icons/md";
 import { MdOutlineReportProblem } from "react-icons/md";
+import { MdEvent } from "react-icons/md";
+import { PiMapPinSimpleAreaFill } from "react-icons/pi";
 import { FaArchive } from "react-icons/fa";
 import { ImFeed } from "react-icons/im";
+import { IoIosChatbubbles } from "react-icons/io";
+import { IoServer } from "react-icons/io5";
+import { IoMdChatbubbles } from "react-icons/io";
 import { Box, IconButton, Typography } from "@mui/material";
 import { HiBars4 } from "react-icons/hi2";
+import { MdPlace } from "react-icons/md";
+import { LiaIdCardSolid } from "react-icons/lia";
 import { useEffect } from "react";
 
 const Item = ({ id, title, to, icon, selected, setSelected }) => {
@@ -112,7 +120,7 @@ const SidebarComponent = () => {
             <h3 className="text-sm ml-3 mt-2 text-gray-400">USERS HUB</h3>
             <Item
               id="3"
-              title="Buddies"
+              title="Users"
               to="/users"
               icon={<MdPeopleAlt />}
               selected={selected}
@@ -241,24 +249,24 @@ const SidebarComponent = () => {
             <Item
               id="17"
               title="Buddies Mapo"
-              to="/line"
-              icon={<FaHome />}
+              to="/buddiesMapo"
+              icon={<FaMapLocationDot />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               id="18"
               title="PopPins"
-              to="/geography"
-              icon={<FaHome />}
+              to="/poppins"
+              icon={<PiMapPinSimpleAreaFill />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               id="19"
               title="Infocards"
-              to="/geography"
-              icon={<FaHome />}
+              to="/infocards"
+              icon={<LiaIdCardSolid />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -266,7 +274,7 @@ const SidebarComponent = () => {
               id="20"
               title="Places"
               to="/geography"
-              icon={<FaHome />}
+              icon={<MdPlace />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -274,32 +282,32 @@ const SidebarComponent = () => {
               id="21"
               title="Events"
               to="/geography"
-              icon={<FaHome />}
+              icon={<MdEvent />}
               selected={selected}
               setSelected={setSelected}
             />
             <h3 className="text-sm ml-3 mt-2 text-gray-400">SPACE HUB</h3>
             <Item
               id="22"
-              title="Events"
+              title="User Solo"
               to="/geography"
-              icon={<FaHome />}
+              icon={<IoIosChatbubbles />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               id="23"
-              title="Events"
+              title="Page Solo"
               to="/geography"
-              icon={<FaHome />}
+              icon={<IoMdChatbubbles />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               id="24"
-              title="Events"
+              title="Servers"
               to="/geography"
-              icon={<FaHome />}
+              icon={<IoServer />}
               selected={selected}
               setSelected={setSelected}
             />

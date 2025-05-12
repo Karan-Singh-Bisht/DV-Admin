@@ -65,7 +65,7 @@ const PagePost = () => {
       <div className="flex justify-between items-center py-4 px-0">
         <Header
           pageName={pageName}
-          title={"Users Hub"}
+          title={"Content Hub"}
           subtitle={"Welcome To Buddies"}
         />
       </div>

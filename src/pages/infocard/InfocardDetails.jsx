@@ -2,36 +2,40 @@ import { useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
-const VerificationDetails = () => {
-  const images = {
-    Selfie: "/vite.svg",
-    Aadhar: "/picture.png",
-    PanCard: "/tv.webp",
-  };
-
-  const [selectedImage, setSelectedImage] = useState("Selfie");
+const InfocardDetails = () => {
   const navigate = useNavigate();
 
-  const userDetails = [
-    { label: "userId", value: "12345" },
-    { label: "userType", value: "Admin" },
-    { label: "fullName", value: "John Doe" },
-    { label: "phoneNumber", value: "+1 234 567 890" },
-    { label: "email", value: "john.doe@example.com" },
-    { label: "Verified", value: "Yes" },
-    { label: "Created At", value: "01-05-2025" },
-    { label: "Updated At", value: "05-05-2025" },
-  ];
+  const [selectedImage, setSelectedImage] = useState("avatar");
 
-  const getIdentityImage = () => {
-    if (images.Aadhar) return images.Aadhar;
-    if (images.PanCard) return images.PanCard;
-    return ""; // fallback
+  const images = {
+    avatar: "/vite.svg", // avatar
+    photo: "/picture.png", // full photo
   };
 
+  const profileDetails = [
+    { label: "Page ID", value: "PG123456" },
+    { label: "Username", value: "karan_singh" },
+    { label: "Display Name", value: "Karan Singh" },
+    { label: "Category", value: "Developer" },
+    { label: "Email", value: "karan@example.com" },
+    { label: "Phone Number", value: "+91 9876543210" },
+    { label: "Bio", value: "Passionate MERN stack developer." },
+    { label: "Location", value: "Delhi, India" },
+    { label: "Company / Institution", value: "ABC Tech Pvt. Ltd." },
+    { label: "Website URL", value: "https://karansingh.dev" },
+    { label: "Instagram URL", value: "https://instagram.com/karan" },
+    { label: "YouTube URL", value: "https://youtube.com/karan" },
+    { label: "Facebook URL", value: "https://facebook.com/karan" },
+    { label: "LinkedIn URL", value: "https://linkedin.com/in/karan" },
+    { label: "Keywords", value: "developer, MERN, devops" },
+    { label: "Geo Location", value: "28.6139° N, 77.2090° E" },
+    { label: "Created On", value: "01-04-2025" },
+    { label: "Latest Updated On", value: "06-05-2025" },
+  ];
+
   return (
-    <div className="flex w-full h-[47vw] justify-center items-center p-4">
-      <div className="w-full relative max-w-8xl mx-auto bg-white rounded-xl shadow-md p-6">
+    <div className="flex w-full justify-center items-center p-4 mt-[1vw]">
+      <div className="w-full relative max-w-8xl mx-auto bg-white rounded-xl shadow-md p-6 ">
         {/* Header */}
         <div className="flex items-center justify-between border-b pb-4 mb-6 text-gray-700">
           <div className="flex items-center gap-3">
@@ -39,7 +43,7 @@ const VerificationDetails = () => {
               className="text-2xl hover:cursor-pointer hover:text-gray-800"
               onClick={() => navigate(-1)}
             />
-            <span className="text-lg font-semibold">Verification Details</span>
+            <span className="text-lg font-semibold">Profile Details</span>
           </div>
           <span className="text-lg font-bold text-blue-600">Karan</span>
         </div>
@@ -49,32 +53,30 @@ const VerificationDetails = () => {
           {/* Left Image Section */}
           <div className="flex-1 flex flex-col relative items-center justify-center w-full">
             <img
-              src={
-                selectedImage === "Selfie" ? images.Selfie : getIdentityImage()
-              }
+              src={selectedImage === "avatar" ? images.avatar : images.photo}
               alt={selectedImage}
               className="rounded-lg object-contain max-h-128 h-[30vw] w-full lg:w-[100%]"
             />
             <div className="flex gap-3 mt-4">
               <button
-                onClick={() => setSelectedImage("Selfie")}
+                onClick={() => setSelectedImage("avatar")}
                 className={`px-4 py-2 rounded ${
-                  selectedImage === "Selfie"
+                  selectedImage === "avatar"
                     ? "bg-blue-500 text-white"
                     : "bg-gray-200 hover:bg-gray-300"
                 }`}
               >
-                Authorized Selfie
+                Avatar
               </button>
               <button
-                onClick={() => setSelectedImage("Identity")}
+                onClick={() => setSelectedImage("photo")}
                 className={`px-4 py-2 rounded ${
-                  selectedImage === "Identity"
+                  selectedImage === "photo"
                     ? "bg-blue-500 text-white"
                     : "bg-gray-200 hover:bg-gray-300"
                 }`}
               >
-                Identity Doc
+                Photo
               </button>
             </div>
           </div>
@@ -82,13 +84,13 @@ const VerificationDetails = () => {
           {/* Right Details Section */}
           <div className="flex-1 flex flex-col w-full text-gray-800">
             <div className="grid grid-cols-1 gap-4 mt-4">
-              {userDetails?.map((item, idx) => (
+              {profileDetails.map((item, idx) => (
                 <div
                   key={idx}
                   className="flex flex-col sm:flex-row justify-between border-b pb-3"
                 >
                   <div className="font-semibold w-1/2">{item.label}</div>
-                  <div className="w-full sm:w-1/2 text-gray-700">
+                  <div className="w-full sm:w-1/2 text-gray-700 break-all">
                     {item.value}
                   </div>
                 </div>
@@ -98,7 +100,7 @@ const VerificationDetails = () => {
         </div>
 
         {/* Action Buttons at Bottom Right */}
-        <div className="absolute bottom-6 right-6 flex flex-wrap gap-3">
+        <div className="flex justify-end mt-8 flex-wrap gap-3">
           <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
             Approve
           </button>
@@ -117,4 +119,4 @@ const VerificationDetails = () => {
   );
 };
 
-export default VerificationDetails;
+export default InfocardDetails;

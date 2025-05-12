@@ -1,0 +1,19 @@
+.poppins-container {
+  padding: 20px;
+}
+
+.map-section {
+  margin-bottom: 30px;
+}
+
+.table-section table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-section th,
+.table-section td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}

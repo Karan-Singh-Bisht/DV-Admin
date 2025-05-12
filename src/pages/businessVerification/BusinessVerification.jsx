@@ -67,7 +67,7 @@ const BusinessVerification = () => {
       <div className="flex justify-between items-center">
         <Header
           pageName={pageName}
-          title={"Business Verification"}
+          title={"Users Hub"}
           subtitle={"Welcome To Business Verification"}
         />
       </div>

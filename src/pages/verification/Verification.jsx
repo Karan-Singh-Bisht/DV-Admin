@@ -79,11 +79,7 @@ const Verification = () => {
   return (
     <div className="m-[20px]">
       <div className="flex justify-between items-center">
-        <Header
-          pageName={pageName}
-          title={"Verification"}
-          subtitle={"Welcome To Verification"}
-        />
+        <Header pageName={pageName} title={"Users Hub"} />
       </div>
       <div className="overflow-x-auto p-4 bg-[#0d1028] relative mt-4 text-white">
         <table className="min-w-full table-auto border-collapse">

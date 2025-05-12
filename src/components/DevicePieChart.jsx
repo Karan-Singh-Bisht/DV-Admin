@@ -1,10 +1,10 @@
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 const data = [
-  { name: "A", value: 25 },
-  { name: "B", value: 15 },
-  { name: "C", value: 20 },
-  { name: "D", value: 8 },
+  { name: "Mobile", value: 25 },
+  { name: "Laptop", value: 15 },
+  { name: "PC", value: 20 },
+  { name: "MacBook", value: 8 },
 ];
 
 const CustomTooltip = ({ active, payload }) => {
@@ -40,7 +40,7 @@ const renderCenterText = () => (
 
 const DevicePieChart = () => {
   return (
-    <div className="h-[100px] sm:h-[300px] w-full bg-[#0c1027] flex justify-center items-center">
+    <div className="h-auto w-full bg-[#0c1027] flex flex-col items-center py-4">
       <ResponsiveContainer width={270} height={270}>
         <PieChart>
           <defs>
@@ -67,7 +67,7 @@ const DevicePieChart = () => {
             dataKey="value"
             stroke="none"
           >
-            {data.map((_, index) => (
+            {data.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}
@@ -78,6 +78,19 @@ const DevicePieChart = () => {
           {renderCenterText()}
         </PieChart>
       </ResponsiveContainer>
+
+      {/* Legend below the chart */}
+      <div className="mt-4 grid grid-cols-2 gap-4 text-white text-xs">
+        {data.map((entry, index) => (
+          <div key={index} className="flex items-center gap-2">
+            <span
+              className="inline-block w-3 h-3 rounded-full"
+              style={{ backgroundColor: COLORS[index % COLORS.length] }}
+            />
+            <span>{entry.name}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

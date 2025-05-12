@@ -8,39 +8,44 @@ import {
 } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { IoMdArrowBack } from "react-icons/io";
+import { useRef } from "react";
 
 const FeedCreatePage = () => {
+  const fileInputRef = useRef(null);
+  const [imagePreview, setImagePreview] = useState("");
   const [platformName, setPlatformName] = useState("");
   const [url, setUrl] = useState("");
-  const [previewImage, setPreviewImage] = useState("");
   const navigate = useNavigate();
 
   const handlePlatformClick = (name) => {
     setPlatformName(name);
   };
 
-  const handleURLChange = async (e) => {
-    const inputUrl = e.target.value;
-    setUrl(inputUrl);
-    setPreviewImage(""); // reset on new input
+  const handleAreaClick = () => {
+    fileInputRef.current.click();
+  };
 
-    try {
-      const res = await fetch(
-        `https://api.linkpreview.net/?key=YOUR_API_KEY&q=${inputUrl}`
-      );
-      const data = await res.json();
-      if (data && data.image) {
-        setPreviewImage(data.image);
-      }
-    } catch (error) {
-      console.error("Failed to fetch link preview:", error);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith("image/")) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
+  const handleURLChange = async (e) => {
+    const inputUrl = e.target.value;
+    setUrl(inputUrl);
+    setImagePreview(""); // reset on new input
+  };
+
   return (
-    <div className="flex w-full h-[45vw] justify-center items-center p-4">
+    <div className="flex w-full h-[47vw] justify-center items-center p-4">
       <div
-        className={`w-full max-w-7xl bg-white rounded-2xl shadow-md p-8 space-y-6 `}
+        className={`w-full h-full max-w-8xl flex flex-col bg-white rounded-2xl shadow-md p-8 space-y-6 `}
       >
         {/* Back Button */}
         <button className="text-2xl mb-2" onClick={() => navigate(-1)}>
@@ -60,20 +65,32 @@ const FeedCreatePage = () => {
           </button>
         </div>
         {/* If previewImage exists, display it on the left */}
-        <div className="flex justify-center items-center w-full gap-4">
+        <div className="flex justify-center items-center w-full h-full gap-4">
           <div className="flex-1 flex-col gap-2">
-            {/* <img
-              src={previewImage}
-              alt="Preview"
-              className="w-full h-[25vw] rounded-md "
-            /> */}
+            <div
+              onClick={handleAreaClick}
+              className="w-full h-[25vw] border-2 border-dashed border-gray-400 rounded-md flex items-center justify-center cursor-pointer overflow-hidden"
+            >
+              {imagePreview ? (
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  className="max-h-full max-w-full object-contain"
+                />
+              ) : (
+                <span className="text-gray-500">Click to upload image</span>
+              )}
+            </div>
             <input
               type="file"
-              className="w-full h-[20vw] p-3  border rounded"
+              ref={fileInputRef}
+              onChange={handleImageChange}
+              accept="image/*"
+              className="hidden"
             />
           </div>
 
-          <div className="flex-1 space-y-4">
+          <div className="flex-1 gap-4 flex flex-col justify-center h-full ">
             {/* <h1 className="text-center">OR</h1> */}
 
             {/* Description */}

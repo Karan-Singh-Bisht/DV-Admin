@@ -23,6 +23,10 @@ import BusinessVerification from "./pages/businessVerification/BusinessVerificat
 import BusinessVerificationDetails from "./pages/businessVerification/BusinessVerificationDetails";
 import CreatorVerification from "./pages/creatorVerification/CreatorVerification";
 import CreatorVerificationDetails from "./pages/creatorVerification/CreatorVerificationDetails";
+import Infocard from "./pages/infocard/Infocard";
+import InfocardDetails from "./pages/infocard/InfocardDetails";
+import PopPins from "./poppins/PopPins";
+import BuddyMapo from "./pages/buddyMapo/BuddyMapo";
 import PrivateRoute from "./pages/PrivateRoute";
 
 const App = () => {
@@ -51,17 +55,17 @@ const App = () => {
           <Route
             path="/"
             element={
-              // <PrivateRoute>
-              <Dashboard />
-              // {/* </PrivateRoute> */}
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
             }
           />
           <Route
             path="/analytics"
             element={
-              // <PrivateRoute>
-              <Dashboard />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
             }
           />
           <Route
@@ -213,6 +217,38 @@ const App = () => {
             element={
               // <PrivateRoute>
               <FeedCreatePage />
+              // </PrivateRoute>
+            }
+          />
+          <Route
+            path="/infocards"
+            element={
+              // <PrivateRoute>
+              <Infocard />
+              // </PrivateRoute>
+            }
+          />
+          <Route
+            path="infocards/:pageId"
+            element={
+              // <PrivateRoute>
+              <InfocardDetails />
+              // </PrivateRoute>
+            }
+          />
+          <Route
+            path="/poppins"
+            element={
+              // <PrivateRoute>
+              <PopPins />
+              // </PrivateRoute>
+            }
+          />
+          <Route
+            path="/buddiesMapo"
+            element={
+              // <PrivateRoute>
+              <BuddyMapo />
               // </PrivateRoute>
             }
           />

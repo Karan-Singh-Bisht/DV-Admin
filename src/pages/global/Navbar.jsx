@@ -9,7 +9,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="flex flex-col sm:flex-row text-white sticky top-0 backdrop-blur-xl w-full items-center sm:justify-between h-auto sm:h-24 px-4 sm:px-6 py-2 sm:py-0">
+    <div className="flex flex-col sm:flex-row text-white sticky z-10 top-0 backdrop-blur-xl w-full items-center sm:justify-between h-auto sm:h-24 px-4 sm:px-6 py-2 sm:py-0">
       {/* Top row: Search and hamburger */}
       <div className="w-full flex items-center justify-between sm:justify-start sm:w-[80%] h-full">
         {/* Search Bar */}
