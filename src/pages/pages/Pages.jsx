@@ -1,38 +1,45 @@
 import { useLocation } from "react-router-dom";
 import Header from "../../components/Header";
 import { IoSearchSharp } from "react-icons/io5";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CiGrid41 } from "react-icons/ci";
 import { FaGripLines } from "react-icons/fa";
 import PageTable from "../../components/PageTable";
 import PagesGridView from "../../components/PagesGridView";
-
-const pages = [
-  {
-    id: 1,
-    avatar: "",
-    userType: "Business",
-    FullName: "Karan Singh Bisht",
-    UserName: "Karan",
-    Category: "Entertainment",
-    Verified: true,
-  },
-  {
-    id: 2,
-    avatar: "",
-    userType: "Creator",
-    FullName: "XYZ",
-    UserName: "XYZ",
-    Category: "Entertainment",
-    Verified: false,
-  },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { getAllPages } from "../../state/Page/pageSlice";
 
 const Pages = () => {
   const location = useLocation();
   const pageName = location.pathname.slice(1);
   const [searchValue, setSearchValue] = useState("");
   const [layout, setLayout] = useState("line");
+  const dispatch = useDispatch();
+  const pages = useSelector((state) => state.page.pages);
+  const [verifiedFilter, setVerifiedFilter] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
+
+  const filteredPages = pages.filter((page) => {
+    const matchesSearch =
+      page.pageName?.toLowerCase().includes(searchValue.toLowerCase()) ||
+      page.UserName?.toLowerCase().includes(searchValue.toLowerCase()) ||
+      page.Category?.toLowerCase().includes(searchValue.toLowerCase());
+
+    const matchesVerified =
+      !verifiedFilter ||
+      (verifiedFilter === "yes" && page.isPrivate == true) ||
+      (verifiedFilter === "no" && page.isPrivate == false) ||
+      (verifiedFilter === "pending" && page.isActive == "pending");
+
+    // const matchesType =
+    //   !typeFilter || page.pageType?.toLowerCase() === typeFilter.toLowerCase();
+
+    return matchesSearch && matchesVerified;
+  });
+
+  useEffect(() => {
+    dispatch(getAllPages());
+  }, [dispatch]);
 
   return (
     <div className="p-4 min-h-screen text-white">
@@ -69,7 +76,8 @@ const Pages = () => {
             {/* Verified Dropdown */}
             <select
               id="verified"
-              defaultValue=""
+              value={verifiedFilter}
+              onChange={(e) => setVerifiedFilter(e.target.value)}
               className="bg-[#0F1535] text-white p-2 rounded-md border border-gray-700 w-[120px]"
             >
               <option value="" disabled hidden>
@@ -83,7 +91,8 @@ const Pages = () => {
             {/* Page Type Dropdown */}
             <select
               id="type"
-              defaultValue=""
+              value={typeFilter}
+              onChange={(e) => setTypeFilter(e.target.value)}
               className="bg-[#0F1535] text-white p-2 rounded-md border border-gray-700 w-[120px]"
             >
               <option value="" disabled hidden>
@@ -116,11 +125,11 @@ const Pages = () => {
       {/* Layout View */}
       {layout === "line" ? (
         <div className="mt-6">
-          <PageTable pages={pages} />
+          <PageTable pages={filteredPages} />
         </div>
       ) : (
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {pages.map((page) => (
+          {filteredPages.map((page) => (
             <PagesGridView key={page.id} page={page} />
           ))}
         </div>

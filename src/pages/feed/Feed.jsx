@@ -3,35 +3,50 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { IoSearchSharp } from "react-icons/io5";
 import FeedsCard from "../../components/FeedsCard";
-
-const Feeds = [
-  {
-    id: 1,
-    username: "Karan",
-    media: "/picture.png",
-    category: "Any Thing",
-    subCategory: "Religious",
-    location: "Calicut",
-    platform: "Instagram",
-    description: "Test",
-  },
-  {
-    id: 2,
-    username: "Karan",
-    media: "/picture.png",
-    category: "Any Thing",
-    subCategory: "Religious",
-    location: "Calicut",
-    platform: "Instagram",
-    description: "Test",
-  },
-];
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFeeds } from "../../state/Feed/feedSlice";
 
 const Feed = () => {
   const search = useLocation();
   const pageName = search.pathname.slice(1);
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [platform, setPlatform] = useState("");
+  const [type, setType] = useState("");
+
+  useEffect(() => {
+    const fetchAllFeeds = async () => {
+      try {
+        await dispatch(fetchFeeds());
+      } catch (error) {
+        console.error("Failed to fetch users:", error);
+      }
+    };
+
+    fetchAllFeeds(); // Call the function
+  }, [dispatch]);
+
+  const Feeds = useSelector((state) => state.feed.feeds);
+
+  const filteredFeeds = Feeds.filter((feed) => {
+    const matchesSearch =
+      feed.usernameOrName.toLowerCase().includes(searchValue.toLowerCase()) ||
+      feed.location.toLowerCase().includes(searchValue.toLowerCase()) ||
+      feed.categories.toLowerCase().includes(searchValue.toLowerCase()) ||
+      feed.platform.toLowerCase().includes(searchValue.toLowerCase());
+
+    const matchesPlatform =
+      !platform ||
+      (platform === "X" && feed.platform == "X") ||
+      (platform === "instagram" && feed.platform == "Instagram") ||
+      (platform === "facebook" && feed.platform == "Facebook") ||
+      (platform === "devi" && feed.platform == "DeVi") ||
+      (platform === "linkedin" && feed.platform == "Linkedin");
+
+    return matchesSearch && matchesPlatform;
+  });
 
   return (
     <div className="p-4 min-h-screen">
@@ -65,21 +80,25 @@ const Feed = () => {
           {/* Verified Dropdown */}
           <select
             id="verified"
-            defaultValue=""
+            onChange={(e) => setPlatform(e.target.value)}
+            value={platform}
             className="bg-[#0F1535] text-white px-3 py-2 rounded-md border border-gray-700"
           >
             <option value="" disabled hidden>
-              Verified
+              Platform
             </option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-            <option value="pending">Pending</option>
+            <option value="instagram">Instagram</option>
+            <option value="X">X</option>
+            <option value="devi">DeVi</option>
+            <option value="facebook">Facebook</option>
+            <option value="linkedin">Linkedin</option>
           </select>
 
           {/* Page Type Dropdown */}
           <select
             id="type"
-            defaultValue=""
+            onChange={(e) => setType(e.target.value)}
+            value={type}
             className="bg-[#0F1535] text-white px-3 py-2 rounded-md border border-gray-700"
           >
             <option value="" disabled hidden>
@@ -94,7 +113,7 @@ const Feed = () => {
 
       {/* Table */}
       <div className="mt-6 overflow-x-auto flex gap-4">
-        {Feeds.map((feed, index) => (
+        {filteredFeeds.map((feed, index) => (
           <FeedsCard key={index} feed={feed} />
         ))}
       </div>

@@ -1,27 +1,37 @@
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { getUser } from "../../state/User/userSlice";
 
-const BuddyDetails = ({ post }) => {
+const BuddyDetails = () => {
   const navigate = useNavigate();
   const params = useParams();
-
+  const dispatch = useDispatch();
   const id = params.id;
+  const [post, setPost] = useState({});
 
-  // Sample static data – replace with dynamic `post` props as needed
-  const postDetails = [
-    { label: "userId", value: "1" },
-    { label: "Usertype", value: "Individual" },
-    { label: "Fullname", value: "DeVi" },
-    { label: "Nickname", value: "DV" },
-    { label: "Gender", value: "M" },
-    { label: "DOB", value: "11-08-2004" },
-    { label: "Phone", value: "+91 7011106165" },
-    { label: "Email", value: "harsar@gmail.com" },
-    { label: "Bio", value: "Loves to dance" },
-    { label: "Website", value: "https://localhost:5050" },
-    { label: "Created at", value: post?.createdAt || "02-05-2024" },
-    { label: "Updated at", value: post?.createdAt || "02-05-2024" },
-  ];
+  useEffect(() => {
+    const getUserDetails = async () => {
+      try {
+        const response = await dispatch(getUser(id)).unwrap();
+        setPost(response);
+      } catch (err) {
+        console.error("Failed to fetch user", err);
+      }
+    };
+    if (id) getUserDetails();
+  }, [dispatch, id]);
+
+  const formatDate = (dateStr) => {
+    if (!dateStr) return "N/A";
+    const date = new Date(dateStr);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = date.toLocaleString("default", { month: "short" });
+
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
 
   return (
     <div className="flex w-full h-[47vw] justify-center items-center p-4">
@@ -36,7 +46,7 @@ const BuddyDetails = ({ post }) => {
             <span className="text-lg font-semibold">Posted by</span>
           </div>
           <span className="text-lg font-bold text-blue-600">
-            {post?.postedBy || "karan"}
+            {post?.name || "NA"}
           </span>
         </div>
 
@@ -44,24 +54,37 @@ const BuddyDetails = ({ post }) => {
         <div className="flex flex-col lg:flex-row gap-6 items-center">
           <div className="flex-1 flex justify-center">
             <img
-              src={post?.imageUrl || "/vite.svg"}
+              loading="lazy"
+              decoding="async"
+              src={post?.profileImg || "/vite.svg"}
               alt="Post"
               className="rounded-lg object-contain max-h-128 h-[30vw] w-full lg:w-[100%]"
             />
           </div>
 
           <div className="flex-1 flex flex-col">
-            {" "}
-            {/* Post Meta Details */}
             <div className="grid grid-cols-1 gap-4 mt-4 text-gray-800">
-              {postDetails.map((item, idx) => (
+              {Object.entries({
+                "User ID": post?._id,
+                "User Type": post?.usertype || "Individual",
+                "Full Name": post?.name,
+                Nickname: post?.username,
+                Gender: post?.gender,
+                DOB: post?.dob,
+                Phone: post?.phoneNumber,
+                Email: post?.mailAddress,
+                Bio: post?.bio,
+                Website: post?.link,
+                "Created At": formatDate(post?.createdAt),
+                "Updated At": formatDate(post?.updatedAt),
+              }).map(([label, value], idx) => (
                 <div
                   key={idx}
                   className="flex flex-col sm:flex-row justify-between border-b pb-3"
                 >
-                  <div className="font-semibold w-1/2">{item.label}</div>
+                  <div className="font-semibold w-1/2">{label}</div>
                   <div className="w-full sm:w-1/2 text-gray-700">
-                    {item.value}
+                    {value || "N/A"}
                   </div>
                 </div>
               ))}

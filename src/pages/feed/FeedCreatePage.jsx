@@ -12,13 +12,21 @@ import { useRef } from "react";
 
 const FeedCreatePage = () => {
   const fileInputRef = useRef(null);
-  const [imagePreview, setImagePreview] = useState("");
-  const [platformName, setPlatformName] = useState("");
   const [url, setUrl] = useState("");
   const navigate = useNavigate();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [feedData, setFeedData] = useState({
+    mediaUrl: [],
+    description: "",
+    platformName: "",
+    usernameOrName: "",
+    location: "",
+    categories: "",
+    subCategories: [],
+  });
 
   const handlePlatformClick = (name) => {
-    setPlatformName(name);
+    setFeedData((prev) => ({ ...prev, platformName: name }));
   };
 
   const handleAreaClick = () => {
@@ -26,20 +34,38 @@ const FeedCreatePage = () => {
   };
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file && file.type.startsWith("image/")) {
+    const files = Array.from(e.target.files);
+    const imageFiles = files.filter((file) => file.type.startsWith("image/"));
+
+    const remainingSlots = 5 - feedData.mediaUrl.length;
+    if (imageFiles.length > remainingSlots) {
+      alert("You can only upload up to 5 images in total.");
+      return;
+    }
+
+    const file = imageFiles[0]; // Just previewing the first one selected
+    if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result);
       };
       reader.readAsDataURL(file);
+
+      setFeedData((prev) => ({
+        ...prev,
+        mediaUrl: [...prev.mediaUrl, ...imageFiles],
+      }));
     }
   };
 
-  const handleURLChange = async (e) => {
-    const inputUrl = e.target.value;
-    setUrl(inputUrl);
-    setImagePreview(""); // reset on new input
+  // const handleURLChange = async (e) => {
+  //   const inputUrl = e.target.value;
+  //   setUrl(inputUrl);
+  //   setImagePreview(""); // reset on new input
+  // };
+
+  const handleChange = (e) => {
+    setFeedData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   return (
@@ -56,27 +82,54 @@ const FeedCreatePage = () => {
           <input
             type="text"
             placeholder="Enter URL"
-            value={url}
-            onChange={handleURLChange}
+            // value={url}
+            // onChange={handleURLChange}
             className="flex-grow p-3 border rounded"
           />
           <button className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 w-full sm:w-auto">
             Submit
           </button>
         </div>
-        {/* If previewImage exists, display it on the left */}
         <div className="flex justify-center items-center w-full h-full gap-4">
           <div className="flex-1 flex-col gap-2">
             <div
               onClick={handleAreaClick}
-              className="w-full h-[25vw] border-2 border-dashed border-gray-400 rounded-md flex items-center justify-center cursor-pointer overflow-hidden"
+              className="w-full h-[30vw] border-2 border-dashed border-gray-400 rounded-md flex items-center justify-center cursor-pointer overflow-hidden"
             >
-              {imagePreview ? (
-                <img
-                  src={imagePreview}
-                  alt="Preview"
-                  className="max-h-full max-w-full object-contain"
-                />
+              {feedData.mediaUrl.length > 0 ? (
+                <div className="relative w-full h-full flex items-center justify-center">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentImageIndex((prev) =>
+                        prev === 0 ? feedData.mediaUrl.length - 1 : prev - 1
+                      );
+                    }}
+                    className="absolute left-2 bg-white rounded-full shadow p-2 z-10 hover:bg-gray-200"
+                  >
+                    ←
+                  </button>
+
+                  <img
+                    src={URL.createObjectURL(
+                      feedData.mediaUrl[currentImageIndex]
+                    )}
+                    alt={`Image ${currentImageIndex + 1}`}
+                    className="max-h-full max-w-full object-contain"
+                  />
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentImageIndex((prev) =>
+                        prev === feedData.mediaUrl.length - 1 ? 0 : prev + 1
+                      );
+                    }}
+                    className="absolute right-2 bg-white rounded-full shadow p-2 z-10 hover:bg-gray-200"
+                  >
+                    →
+                  </button>
+                </div>
               ) : (
                 <span className="text-gray-500">Click to upload image</span>
               )}
@@ -86,25 +139,29 @@ const FeedCreatePage = () => {
               ref={fileInputRef}
               onChange={handleImageChange}
               accept="image/*"
+              multiple
               className="hidden"
             />
           </div>
 
           <div className="flex-1 gap-4 flex flex-col justify-center h-full ">
-            {/* <h1 className="text-center">OR</h1> */}
-
             {/* Description */}
             <input
+              name="description"
               type="text"
               placeholder="Description"
+              onChange={handleChange}
+              value={feedData.description}
               className="w-full p-3 border rounded"
             />
 
             {/* Platform Name */}
             <input
+              name="platformName"
               type="text"
               placeholder="Platform Name"
-              value={platformName}
+              value={feedData.platformName}
+              onChange={handleChange}
               readOnly
               className="w-full p-3 border rounded bg-gray-100 cursor-not-allowed"
             />
@@ -141,23 +198,35 @@ const FeedCreatePage = () => {
 
             {/* Other fields */}
             <input
+              name="usernameOrName"
               type="text"
               placeholder="Username"
+              onChange={handleChange}
+              value={feedData.usernameOrName}
               className="w-full p-3 border rounded"
             />
             <input
+              name="location"
               type="text"
+              onChange={handleChange}
+              value={feedData.location}
               placeholder="Location"
               className="w-full p-3 border rounded"
             />
             <div className="w-full flex justify-end"></div>
             <div className="flex flex-col sm:flex-row gap-2">
               <input
+                name="categories"
+                onChange={handleChange}
+                value={feedData.categories}
                 type="text"
                 placeholder="Category"
                 className="w-full sm:w-1/2 p-3 border rounded"
               />
               <input
+                name="subCategories"
+                onChange={handleChange}
+                value={feedData.subCategories}
                 type="text"
                 placeholder="SubCategory"
                 className="w-full sm:w-1/2 p-3 border rounded"

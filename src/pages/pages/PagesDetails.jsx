@@ -1,32 +1,43 @@
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getPage } from "../../state/Page/pageSlice";
 
-const PagesDetails = ({ post }) => {
+const PagesDetails = () => {
   const navigate = useNavigate();
-  const params = useParams();
+  const { id } = useParams();
+  const dispatch = useDispatch();
 
-  const id = params.id;
+  const page = useSelector((state) => state.page.page); // adjust based on your slice
+  const loading = useSelector((state) => state.page.loading); // optional
 
-  // Sample static data – replace with dynamic `post` props as needed
+  useEffect(() => {
+    if (id) {
+      dispatch(getPage(id));
+    }
+  }, [dispatch, id]);
+
+  console.log(page);
+
   const postDetails = [
-    { label: "PageId", value: "1" },
-    { label: "Pagetype", value: "Creator" },
-    { label: "Pagename", value: "DeVi" },
-    { label: "Username", value: "DV" },
-    { label: "Profession", value: "Boxer" },
-    { label: "Gender", value: "Female" },
-    { label: "Phone No.", value: "+91 7011106165" },
-    { label: "Email", value: "harsar@gmail.com" },
-    { label: "Bio", value: "Loves to dance" },
-    { label: "Website", value: "https://localhost:5050" },
-    { label: "Created at", value: post?.createdAt || "02-05-2024" },
-    { label: "Updated at", value: post?.createdAt || "02-05-2024" },
+    { label: "PageId", value: page?.id || id },
+    { label: "Pagetype", value: page?.userType || "N/A" },
+    { label: "Pagename", value: page?.pageName || "N/A" },
+    { label: "Username", value: page?.userName || "N/A" },
+    { label: "Profession", value: page?.profession || "N/A" },
+    { label: "Gender", value: page?.gender || "N/A" },
+    { label: "Phone No.", value: page?.Phone || "N/A" },
+    { label: "Email", value: page?.email || "N/A" },
+    { label: "Bio", value: page?.Bio || "N/A" },
+    { label: "Website", value: page?.Website || "N/A" },
+    { label: "Created at", value: page?.createdAt.slice(0, 10) || "N/A" },
+    { label: "Updated at", value: page?.updatedAt.slice(0, 10) || "N/A" },
   ];
 
   return (
-    <div className="flex w-full h-[47vw] justify-center items-center p-4">
+    <div className="flex w-full h-screen justify-center items-center p-4">
       <div className="w-full max-w-8xl mx-auto bg-white rounded-xl shadow-md p-6">
-        {/* Header with back button and posted by */}
         <div className="flex items-center justify-between border-b pb-4 mb-6 text-gray-700">
           <div className="flex items-center gap-3">
             <IoMdArrowBack
@@ -36,7 +47,7 @@ const PagesDetails = ({ post }) => {
             <span className="text-lg font-semibold">Posted by</span>
           </div>
           <span className="text-lg font-bold text-blue-600">
-            {post?.postedBy || "karan"}
+            {page?.postedBy || "Unknown"}
           </span>
         </div>
 
@@ -44,15 +55,13 @@ const PagesDetails = ({ post }) => {
         <div className="flex flex-col lg:flex-row gap-6 items-center">
           <div className="flex-1 flex justify-center">
             <img
-              src={post?.imageUrl || "/vite.svg"}
-              alt="Post"
+              src={page?.profileImg || "/vite.svg"}
+              alt="page"
               className="rounded-lg object-contain max-h-128 h-[30vw] w-full lg:w-[100%]"
             />
           </div>
 
           <div className="flex-1 flex flex-col">
-            {" "}
-            {/* Post Meta Details */}
             <div className="grid grid-cols-1 gap-4 mt-4 text-gray-800">
               {postDetails.map((item, idx) => (
                 <div

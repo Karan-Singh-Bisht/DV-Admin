@@ -7,7 +7,7 @@ export const loginUser = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://devibackend-company-519990150156.asia-east1.run.app/api/admin/login",
+        "http://localhost:8080/api/admin/login",
         formData,
         {
           headers: {

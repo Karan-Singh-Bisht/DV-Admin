@@ -1,8 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../state/Auth/authSlice";
+import userReducer from "../state/User/userSlice";
+import pageReducer from "../state/Page/pageSlice";
+import feedReducer from "../state/Feed/feedSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    user: userReducer,
+    page: pageReducer,
+    feed: feedReducer,
   },
 });
