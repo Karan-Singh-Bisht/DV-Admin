@@ -3,6 +3,7 @@ import authReducer from "../state/Auth/authSlice";
 import userReducer from "../state/User/userSlice";
 import pageReducer from "../state/Page/pageSlice";
 import feedReducer from "../state/Feed/feedSlice";
+import pagePostReducer from "../state/PagePost/pagePostSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     user: userReducer,
     page: pageReducer,
     feed: feedReducer,
+    pagePost: pagePostReducer,
   },
 });

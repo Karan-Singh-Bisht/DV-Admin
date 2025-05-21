@@ -81,6 +81,7 @@ const PageTable = ({ pages }) => {
         <thead className="bg-[#101338] text-white text-left">
           <tr>
             <th className="p-3">#</th>
+            <th className="p-3 uppercase">User ID</th>
             <th className="p-3 uppercase">Page ID</th>
             <th className="p-3 uppercase">Avatar</th>
             <th className="p-3 uppercase">Page Type</th>
@@ -101,6 +102,7 @@ const PageTable = ({ pages }) => {
               <td className="p-3">
                 <span className="text-gray-400">{index + 1}</span>
               </td>
+              <td className="p-3">{page.userId}</td>
               <td className="p-3">{page._id}</td>
               <td className="p-3">
                 <img

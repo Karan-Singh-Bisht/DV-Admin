@@ -186,9 +186,17 @@ const SidebarComponent = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <h3 className="text-sm ml-3 mt-2 text-gray-400">CONTENT HUB</h3>
             <Item
               id="10"
+              title="User Deactivation"
+              to="/faq"
+              icon={<FaArchive />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <h3 className="text-sm ml-3 mt-2 text-gray-400">CONTENT HUB</h3>
+            <Item
+              id="11"
               title="Buddies Posts"
               to="/buddyPosts"
               icon={<ImFeed />}
@@ -196,7 +204,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="11"
+              id="12"
               title="Page Posts"
               to="/pagePosts"
               icon={<FaArchive />}
@@ -204,7 +212,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="12"
+              id="13"
               title="Report/Block"
               to="/faq"
               icon={<MdOutlineReportProblem />}
@@ -212,17 +220,24 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="13"
+              id="14"
               title="Archieve"
               to="/faq"
               icon={<FaArchive />}
               selected={selected}
               setSelected={setSelected}
             />
-
+            <Item
+              id="15"
+              title="Page Deactivation"
+              to="/faq"
+              icon={<FaArchive />}
+              selected={selected}
+              setSelected={setSelected}
+            />
             <h3 className="text-sm ml-3 mt-2 text-gray-400">VISIONFEED HUB</h3>
             <Item
-              id="14"
+              id="16"
               title="Feeds"
               to="/feeds"
               icon={<ImFeed />}
@@ -230,7 +245,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="15"
+              id="17"
               title="Report/Block"
               to="/pie"
               icon={<MdOutlineReportProblem />}
@@ -238,7 +253,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="16"
+              id="18"
               title="Archieve"
               to="/faq"
               icon={<FaArchive />}
@@ -247,7 +262,7 @@ const SidebarComponent = () => {
             />
             <h3 className="text-sm ml-3 mt-2 text-gray-400">MAPO HUB</h3>
             <Item
-              id="17"
+              id="19"
               title="Buddies Mapo"
               to="/buddiesMapo"
               icon={<FaMapLocationDot />}
@@ -255,7 +270,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="18"
+              id="20"
               title="PopPins"
               to="/poppins"
               icon={<PiMapPinSimpleAreaFill />}
@@ -263,7 +278,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="19"
+              id="21"
               title="Infocards"
               to="/infocards"
               icon={<LiaIdCardSolid />}
@@ -271,7 +286,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="20"
+              id="22"
               title="Places"
               to="/geography"
               icon={<MdPlace />}
@@ -279,7 +294,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="21"
+              id="23"
               title="Events"
               to="/geography"
               icon={<MdEvent />}
@@ -288,7 +303,7 @@ const SidebarComponent = () => {
             />
             <h3 className="text-sm ml-3 mt-2 text-gray-400">SPACE HUB</h3>
             <Item
-              id="22"
+              id="24"
               title="User Solo"
               to="/geography"
               icon={<IoIosChatbubbles />}
@@ -296,7 +311,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="23"
+              id="25"
               title="Page Solo"
               to="/geography"
               icon={<IoMdChatbubbles />}
@@ -304,7 +319,7 @@ const SidebarComponent = () => {
               setSelected={setSelected}
             />
             <Item
-              id="24"
+              id="26"
               title="Servers"
               to="/geography"
               icon={<IoServer />}

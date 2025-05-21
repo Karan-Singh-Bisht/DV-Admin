@@ -1,26 +1,34 @@
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getPagePost } from "../../state/PagePost/pagePostSlice";
+import { useEffect } from "react";
 
-const PagesPostDetails = ({ post }) => {
+const PagesPostDetails = () => {
   const navigate = useNavigate();
   const params = useParams();
+  const dispatch = useDispatch();
 
   const id = params.id;
 
-  // Sample static data – replace with dynamic `post` props as needed
+  useEffect(() => {
+    const getPagePostDetails = async (id) => {
+      await dispatch(getPagePost(id));
+    };
+    getPagePostDetails(id);
+  }, [dispatch, id]);
+
+  const post = useSelector((state) => state.pagePost.pagePost);
+
   const postDetails = [
-    { label: "PageId", value: "1" },
-    { label: "Name", value: "John Doe" },
-    { label: "Location", value: "New York" },
-    { label: "Category", value: ["Entertainment", "Music"] },
-    { label: "Claps", value: "400" },
-    { label: "Remarks", value: "50" },
-    { label: "Date", value: "10-02-2004" },
-    { label: "Collaborators", value: "Zomato" },
-    { label: "Music", value: "Xyz" },
-    { label: "Status", value: "Non-Sensitive" },
-    { label: "Spreads", value: "10" },
-    { label: "Rewrites", value: "20" },
+    { label: "Title", value: post?.title || "N/A" },
+    { label: "Description", value: post?.description || "N/A" },
+    { label: "Category", value: post?.category || "N/A" },
+    { label: "Tags", value: post?.tags || [] }, // assuming it's an array
+    {
+      label: "Created At",
+      value: new Date(post?.createdAt).toLocaleString() || "N/A",
+    },
   ];
 
   return (
@@ -36,7 +44,7 @@ const PagesPostDetails = ({ post }) => {
             <span className="text-lg font-semibold">Posted by</span>
           </div>
           <span className="text-lg font-bold text-blue-600">
-            {post?.postedBy || "karan"}
+            {post?.pageId?.userName || "karan"}
           </span>
         </div>
 
@@ -44,7 +52,7 @@ const PagesPostDetails = ({ post }) => {
         <div className="flex flex-col lg:flex-row gap-6 items-center">
           <div className="flex-1 flex justify-center">
             <img
-              src={post?.media || "/picture.png"}
+              src={post?.media[0]?.path || post?.coverPhoto || "NA"}
               alt="Post"
               className="rounded-lg object-contain max-h-128 h-[30vw] w-full lg:w-[100%]"
             />

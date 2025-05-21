@@ -5,13 +5,13 @@ const PagesPostCard = (props) => {
 
   return (
     <div
-      onClick={() => navigate(`/pagePosts/${props.pagePost.id}`)}
+      onClick={() => navigate(`/pagePosts/${props.pagePost._id}`)}
       className="w-full sm:w-full md:w-[48%] lg:w-[32%] xl:w-[23.8%] flex flex-col justify-between hover:cursor-pointer bg-white rounded-xl p-6 h-auto shadow-lg"
     >
       <div>
         {/* User Information */}
         <div className="flex items-center gap-2 text-sm text-gray-600">
-          <h1 className="font-semibold">{props.pagePost.name}</h1>
+          <h1 className="font-semibold">{props.pagePost.title}</h1>
           <span>|</span>
           <h3>{props.pagePost.location}</h3>
         </div>
@@ -19,7 +19,7 @@ const PagesPostCard = (props) => {
         {/* Post Image */}
         <div className="my-4">
           <img
-            src={props.pagePost.media || "/vite.svg"}
+            src={props.pagePost?.media[0]?.path || props.pagePost?.coverPhoto}
             alt="User post"
             className="w-full rounded-xl h-[40vw] md:h-[20vw] object-cover"
           />
@@ -43,13 +43,13 @@ const PagesPostCard = (props) => {
 
         {/* Post Stats */}
         <div className="flex justify-between text-sm text-gray-500 mt-2">
-          <span>{props.pagePost.claps} Claps</span>
-          <span>{props.pagePost.remarks} Remarks</span>
+          <span>{props.pagePost?.likes} Claps</span>
+          <span>{props.pagePost?.remarks} Remarks</span>
         </div>
 
         {/*Reshares */}
         <div className="flex gap-2 text-sm mt-2 text-gray-400">
-          <p>Spreads:{props.pagePost.spreads}</p>
+          <p>Spreads:{props.pagePost?.shared}</p>
           <p>Rewrites:{props.pagePost.rewrites}</p>
         </div>
 

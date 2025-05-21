@@ -70,6 +70,38 @@ export const deleteUser = createAsyncThunk(
   }
 );
 
+export const createUserAvatar = createAsyncThunk(
+  "users/createUserAvatar",
+  async (payload, { rejectWithValue, getState }) => {
+    const { category, file } = payload;
+
+    try {
+      const state = getState();
+      const token = state.auth?.token;
+
+      const formData = new FormData();
+      formData.append("avatar", file);
+      formData.append("category", category);
+
+      const response = await axios.post(
+        `http://localhost:8080/api/admin/avatar/upload-avataruser`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      return response.data;
+    } catch (err) {
+      console.error("Error uploading avatar:", err);
+      return rejectWithValue(err.response?.data || err.message);
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
