@@ -7,7 +7,7 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ username: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const { error, loading } = useSelector((state) => state.auth);
 
@@ -34,8 +34,8 @@ export default function Login() {
               Email
             </label>
             <input
-              id="email"
-              name="email"
+              id="username"
+              name="username"
               type="email"
               value={formData.email}
               onChange={handleChange}

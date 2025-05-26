@@ -4,6 +4,7 @@ import userReducer from "../state/User/userSlice";
 import pageReducer from "../state/Page/pageSlice";
 import feedReducer from "../state/Feed/feedSlice";
 import pagePostReducer from "../state/PagePost/pagePostSlice";
+import infoCardReducer from "./InfoCards/infoCardSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     page: pageReducer,
     feed: feedReducer,
     pagePost: pagePostReducer,
+    infoCard: infoCardReducer,
   },
 });

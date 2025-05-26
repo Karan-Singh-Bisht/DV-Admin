@@ -1,41 +1,67 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getInfoCard } from "../../state/InfoCards/infoCardSlice";
 
 const InfocardDetails = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { pageId } = useParams();
+
+  const { infoCard, loading, error } = useSelector((state) => state.infoCard);
 
   const [selectedImage, setSelectedImage] = useState("avatar");
 
   const images = {
-    avatar: "/vite.svg", // avatar
-    photo: "/picture.png", // full photo
+    avatar: infoCard?.pageId?.profileImg || "/vite.svg",
+    photo: infoCard?.photoUrl || "/picture.png", // adjust if photoUrl is used
   };
 
+  useEffect(() => {
+    if (pageId) {
+      dispatch(getInfoCard(pageId));
+    }
+  }, [pageId, dispatch]);
+
+  if (loading) return <div className="text-center p-6">Loading...</div>;
+  if (error) return <div className="text-center text-red-600 p-6">{error}</div>;
+  if (!infoCard) return null;
+
   const profileDetails = [
-    { label: "Page ID", value: "PG123456" },
-    { label: "Username", value: "karan_singh" },
-    { label: "Display Name", value: "Karan Singh" },
-    { label: "Category", value: "Developer" },
-    { label: "Email", value: "karan@example.com" },
-    { label: "Phone Number", value: "+91 9876543210" },
-    { label: "Bio", value: "Passionate MERN stack developer." },
-    { label: "Location", value: "Delhi, India" },
-    { label: "Company / Institution", value: "ABC Tech Pvt. Ltd." },
-    { label: "Website URL", value: "https://karansingh.dev" },
-    { label: "Instagram URL", value: "https://instagram.com/karan" },
-    { label: "YouTube URL", value: "https://youtube.com/karan" },
-    { label: "Facebook URL", value: "https://facebook.com/karan" },
-    { label: "LinkedIn URL", value: "https://linkedin.com/in/karan" },
-    { label: "Keywords", value: "developer, MERN, devops" },
-    { label: "Geo Location", value: "28.6139° N, 77.2090° E" },
-    { label: "Created On", value: "01-04-2025" },
-    { label: "Latest Updated On", value: "06-05-2025" },
+    { label: "Page Name", value: infoCard.pageId?.pageName },
+    { label: "Username", value: infoCard.pageId?.userName },
+    { label: "Display Name", value: infoCard.name },
+    { label: "Category", value: infoCard.category },
+    { label: "Email", value: infoCard.email },
+    { label: "Phone Number", value: infoCard.phone },
+    { label: "Bio", value: infoCard.bio },
+    { label: "Company / Institution", value: infoCard.company },
+    { label: "Website URL", value: infoCard.website },
+    { label: "Instagram URL", value: infoCard.InstagramUrl },
+    { label: "YouTube URL", value: infoCard.YoutubeUrl },
+    { label: "Facebook URL", value: infoCard.FacebookUrl },
+    { label: "LinkedIn URL", value: infoCard.LinkedinUrl },
+    {
+      label: "Geo Location",
+      value:
+        infoCard.location?.latitude && infoCard.location?.longitude
+          ? `Lat: ${infoCard.location.latitude}, Lng: ${infoCard.location.longitude}`
+          : "N/A",
+    },
+    {
+      label: "Created On",
+      value: new Date(infoCard.createdAt).toLocaleDateString(),
+    },
+    {
+      label: "Latest Updated On",
+      value: new Date(infoCard.updatedAt).toLocaleDateString(),
+    },
   ];
 
   return (
     <div className="flex w-full justify-center items-center p-4 mt-[1vw]">
-      <div className="w-full relative max-w-8xl mx-auto bg-white rounded-xl shadow-md p-6 ">
+      <div className="w-full relative max-w-8xl mx-auto bg-white rounded-xl shadow-md p-6">
         {/* Header */}
         <div className="flex items-center justify-between border-b pb-4 mb-6 text-gray-700">
           <div className="flex items-center gap-3">
@@ -45,12 +71,13 @@ const InfocardDetails = () => {
             />
             <span className="text-lg font-semibold">Profile Details</span>
           </div>
-          <span className="text-lg font-bold text-blue-600">Karan</span>
+          <span className="text-lg font-bold text-blue-600">
+            {infoCard.name}
+          </span>
         </div>
 
         {/* Image & Details */}
         <div className="flex flex-col lg:flex-row gap-6 items-center">
-          {/* Left Image Section */}
           <div className="flex-1 flex flex-col relative items-center justify-center w-full">
             <img
               src={selectedImage === "avatar" ? images.avatar : images.photo}
@@ -91,7 +118,7 @@ const InfocardDetails = () => {
                 >
                   <div className="font-semibold w-1/2">{item.label}</div>
                   <div className="w-full sm:w-1/2 text-gray-700 break-all">
-                    {item.value}
+                    {item.value || "N/A"}
                   </div>
                 </div>
               ))}
@@ -99,7 +126,7 @@ const InfocardDetails = () => {
           </div>
         </div>
 
-        {/* Action Buttons at Bottom Right */}
+        {/* Action Buttons */}
         <div className="flex justify-end mt-8 flex-wrap gap-3">
           <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
             Approve

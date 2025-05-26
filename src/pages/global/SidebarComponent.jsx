@@ -117,215 +117,291 @@ const SidebarComponent = () => {
                 setSelected={setSelected}
               />
             </SubMenu>
-            <h3 className="text-sm ml-3 mt-2 text-gray-400">USERS HUB</h3>
-            <Item
+            <SubMenu
+              className="text-gray-400 [&>div]:bg-[#0F1535]"
+              label="Individual Hub"
+              icon={<FaHome />}
+            >
+              <h3 className="text-sm ml-3 mt-2 text-gray-400">USERS HUB</h3>
+              <Item
+                id="3"
+                title="Users"
+                to="/users"
+                icon={<MdPeopleAlt />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                id="5"
+                title="User Verification"
+                to="/verification"
+                icon={<MdVerifiedUser />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                id="8"
+                title="Report/Block"
+                to="/report"
+                icon={<MdOutlineReportProblem />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                id="9"
+                title="Archieve"
+                to="/faq"
+                icon={<FaArchive />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                id="10"
+                title="User Deactivation"
+                to="/faq"
+                icon={<FaArchive />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <h3 className="text-sm ml-3 mt-2 text-gray-400">CONTENT HUB</h3>
+              <Item
+                id="11"
+                title="Buddies Posts"
+                to="/buddyPosts"
+                icon={<ImFeed />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                id="13"
+                title="Report/Block"
+                to="/faq"
+                icon={<MdOutlineReportProblem />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                id="14"
+                title="Archieve"
+                to="/faq"
+                icon={<FaArchive />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+
+              <h3 className="text-sm ml-3 mt-2 text-gray-400">MAPO HUB</h3>
+              <Item
+                id="19"
+                title="Buddies Mapo"
+                to="/buddiesMapo"
+                icon={<FaMapLocationDot />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+
+              <h3 className="text-sm ml-3 mt-2 text-gray-400">SPACE HUB</h3>
+              <Item
+                id="24"
+                title="User Solo"
+                to="/geography"
+                icon={<IoIosChatbubbles />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </SubMenu>
+            <SubMenu
+              className="text-gray-400 [&>div]:bg-[#0F1535]"
+              label="Page Hub"
+              icon={<FaHome />}
+            >
+              <h3 className="text-sm ml-3 mt-2 text-gray-400">PAGE HUB</h3>
+              {/* <Item
               id="3"
               title="Users"
               to="/users"
               icon={<MdPeopleAlt />}
               selected={selected}
               setSelected={setSelected}
-            />
-            <Item
-              id="4"
-              title="Pages"
-              to="/pages"
-              icon={<IoIosPaper />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
+            /> */}
+              <Item
+                id="4"
+                title="Pages"
+                to="/pages"
+                icon={<IoIosPaper />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              {/* <Item
               id="5"
               title="User Verification"
               to="/verification"
               icon={<MdVerifiedUser />}
               selected={selected}
               setSelected={setSelected}
-            />
-            <Item
-              id="6"
-              title={
-                <>
-                  {/* Pages Verification <br /> (Business) */}
-                  Business Verification
-                </>
-              }
-              to="/businessVerification"
-              icon={<MdVerifiedUser />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+            /> */}
+              <Item
+                id="6"
+                title={
+                  <>
+                    {/* Pages Verification <br /> (Business) */}
+                    Business Verification
+                  </>
+                }
+                to="/businessVerification"
+                icon={<MdVerifiedUser />}
+                selected={selected}
+                setSelected={setSelected}
+              />
 
-            <Item
-              id="7"
-              title={
-                <>
-                  {/* Pages Verification <br /> (Creator) */}
-                  Creator Verification
-                </>
-              }
-              to="/creatorVerification"
-              icon={<MdVerifiedUser />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+              <Item
+                id="7"
+                title={
+                  <>
+                    {/* Pages Verification <br /> (Creator) */}
+                    Creator Verification
+                  </>
+                }
+                to="/creatorVerification"
+                icon={<MdVerifiedUser />}
+                selected={selected}
+                setSelected={setSelected}
+              />
 
-            <Item
-              id="8"
-              title="Report/Block"
-              to="/report"
-              icon={<MdOutlineReportProblem />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              id="9"
-              title="Archieve"
-              to="/faq"
-              icon={<FaArchive />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
+              <Item
+                id="8"
+                title="Report/Block"
+                to="/report"
+                icon={<MdOutlineReportProblem />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                id="9"
+                title="Archieve"
+                to="/faq"
+                icon={<FaArchive />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                id="15"
+                title="Page Deactivation"
+                to="/faq"
+                icon={<FaArchive />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              {/* <Item
               id="10"
               title="User Deactivation"
               to="/faq"
               icon={<FaArchive />}
               selected={selected}
               setSelected={setSelected}
-            />
-            <h3 className="text-sm ml-3 mt-2 text-gray-400">CONTENT HUB</h3>
-            <Item
-              id="11"
-              title="Buddies Posts"
-              to="/buddyPosts"
-              icon={<ImFeed />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              id="12"
-              title="Page Posts"
-              to="/pagePosts"
-              icon={<FaArchive />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              id="13"
-              title="Report/Block"
-              to="/faq"
-              icon={<MdOutlineReportProblem />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              id="14"
-              title="Archieve"
-              to="/faq"
-              icon={<FaArchive />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              id="15"
-              title="Page Deactivation"
-              to="/faq"
-              icon={<FaArchive />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <h3 className="text-sm ml-3 mt-2 text-gray-400">VISIONFEED HUB</h3>
-            <Item
-              id="16"
-              title="Feeds"
-              to="/feeds"
-              icon={<ImFeed />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              id="17"
-              title="Report/Block"
-              to="/pie"
-              icon={<MdOutlineReportProblem />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              id="18"
-              title="Archieve"
-              to="/faq"
-              icon={<FaArchive />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <h3 className="text-sm ml-3 mt-2 text-gray-400">MAPO HUB</h3>
-            <Item
-              id="19"
-              title="Buddies Mapo"
-              to="/buddiesMapo"
-              icon={<FaMapLocationDot />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              id="20"
-              title="PopPins"
-              to="/poppins"
-              icon={<PiMapPinSimpleAreaFill />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              id="21"
-              title="Infocards"
-              to="/infocards"
-              icon={<LiaIdCardSolid />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              id="22"
-              title="Places"
-              to="/geography"
-              icon={<MdPlace />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              id="23"
-              title="Events"
-              to="/geography"
-              icon={<MdEvent />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <h3 className="text-sm ml-3 mt-2 text-gray-400">SPACE HUB</h3>
-            <Item
-              id="24"
-              title="User Solo"
-              to="/geography"
-              icon={<IoIosChatbubbles />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              id="25"
-              title="Page Solo"
-              to="/geography"
-              icon={<IoMdChatbubbles />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              id="26"
-              title="Servers"
-              to="/geography"
-              icon={<IoServer />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+            /> */}
+              <h3 className="text-sm ml-3 mt-2 text-gray-400">CONTENT HUB</h3>
+              <Item
+                id="12"
+                title="Page Posts"
+                to="/pagePosts"
+                icon={<FaArchive />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                id="13"
+                title="Report/Block"
+                to="/faq"
+                icon={<MdOutlineReportProblem />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                id="14"
+                title="Archieve"
+                to="/faq"
+                icon={<FaArchive />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <h3 className="text-sm ml-3 mt-2 text-gray-400">MAPO HUB</h3>
+              <Item
+                id="20"
+                title="PopPins"
+                to="/poppins"
+                icon={<PiMapPinSimpleAreaFill />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                id="21"
+                title="Infocards"
+                to="/infocards"
+                icon={<LiaIdCardSolid />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                id="22"
+                title="Places"
+                to="/geography"
+                icon={<MdPlace />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                id="23"
+                title="Events"
+                to="/geography"
+                icon={<MdEvent />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <h3 className="text-sm ml-3 mt-2 text-gray-400">
+                VISIONFEED HUB
+              </h3>
+              <Item
+                id="16"
+                title="Feeds"
+                to="/feeds"
+                icon={<ImFeed />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                id="17"
+                title="Report/Block"
+                to="/pie"
+                icon={<MdOutlineReportProblem />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                id="18"
+                title="Archieve"
+                to="/faq"
+                icon={<FaArchive />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <h3 className="text-sm ml-3 mt-2 text-gray-400">SPACE HUB</h3>
+              <Item
+                id="25"
+                title="Page Solo"
+                to="/geography"
+                icon={<IoMdChatbubbles />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                id="26"
+                title="Servers"
+                to="/geography"
+                icon={<IoServer />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </SubMenu>
           </Box>
         </Menu>
       </Sidebar>

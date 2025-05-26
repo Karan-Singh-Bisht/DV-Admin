@@ -55,33 +55,33 @@ const App = () => {
           <Route
             path="/"
             element={
-              // <PrivateRoute>
-              <Dashboard />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
             }
           />
           <Route
             path="/analytics"
             element={
-              // <PrivateRoute>
-              <Dashboard />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
             }
           />
           <Route
             path="/eCommerce"
             element={
-              // <PrivateRoute>
-              <Ecommerce />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <Ecommerce />
+              </PrivateRoute>
             }
           />
           <Route
             path="/users"
             element={
-              // <PrivateRoute>
-              <Buddy />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <Buddy />
+              </PrivateRoute>
             }
           />
           <Route

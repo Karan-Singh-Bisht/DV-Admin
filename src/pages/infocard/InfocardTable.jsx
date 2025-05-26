@@ -52,50 +52,50 @@ const InfocardTable = ({ userDetails }) => {
           <tbody>
             {userDetails?.map((userDetail) => (
               <tr
-                key={userDetail.pageId}
-                onClick={() => handleNavigate(userDetail.pageId)}
+                key={userDetail._id}
+                onClick={() => handleNavigate(userDetail._id)}
                 className="border-b border-[#1a1e3f] hover:bg-[#1c2045] hover:cursor-pointer transition relative"
               >
                 <td className="p-3">
                   <input type="checkbox" />
                 </td>
-                <td className="p-3">{userDetail.pageId}</td>
+                <td className="p-3">{userDetail._id}</td>
                 <td className="p-3">
                   <img
-                    src={userDetail.avatar}
+                    src={userDetail?.pageId?.profileImg}
                     alt="Avatar"
                     className="w-10 h-10 rounded-md object-cover"
                   />
                 </td>
                 <td className="p-3">
                   <img
-                    src={userDetail.photo}
+                    src={userDetail?.photo}
                     alt="Photo"
                     className="w-10 h-10 rounded-md object-cover"
                   />
                 </td>
-                <td className="p-3">{userDetail.displayName}</td>
+                <td className="p-3">{userDetail.name}</td>
                 <td className="p-3">{userDetail.category}</td>
-                <td className="p-3">@{userDetail.username}</td>
+                <td className="p-3">@{userDetail?.pageId?.pageName}</td>
                 <td className="p-3">{userDetail.email}</td>
-                <td className="p-3">{userDetail.phoneNumber}</td>
+                <td className="p-3">{userDetail.phone}</td>
                 <td className="p-3 truncate max-w-[150px]">{userDetail.bio}</td>
-                <td className="p-3">{userDetail.location}</td>
-                <td className="p-3">{userDetail.organization}</td>
+                <td className="p-3">Delhi</td>
+                <td className="p-3">{userDetail.company}</td>
                 <td className="p-3 relative">
                   <BsThreeDotsVertical
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleMenuToggle(userDetail.pageId);
+                      handleMenuToggle(userDetail._id);
                     }}
                     className="cursor-pointer"
                   />
-                  {openMenuId === userDetail.pageId && (
+                  {openMenuId === userDetail._id && (
                     <div className="absolute right-4 z-50 mt-2 w-32 bg-white text-black rounded shadow-lg">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleArchive(userDetail.pageId);
+                          handleArchive(userDetail._id);
                         }}
                         className="block w-full px-4 py-2 text-left hover:bg-[#2563EB] hover:text-white"
                       >
@@ -104,7 +104,7 @@ const InfocardTable = ({ userDetails }) => {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleDelete(userDetail.pageId);
+                          handleDelete(userDetail._id);
                         }}
                         className="block w-full px-4 py-2 text-left hover:bg-[#EF4444] hover:text-white"
                       >

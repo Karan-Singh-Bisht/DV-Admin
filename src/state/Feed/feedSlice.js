@@ -49,13 +49,14 @@ export const fetchFeedDetails = createAsyncThunk(
 
 export const createFeed = createAsyncThunk(
   "/feed/createFeed",
-  async (feedData, { rejectWithValue, getState }) => {
+  async (formData, { rejectWithValue, getState }) => {
+    console.log(formData);
     try {
       const state = getState();
       const token = state.auth?.token;
       const response = await axios.post(
         "http://localhost:8080/api/admin/feed",
-        feedData,
+        formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,

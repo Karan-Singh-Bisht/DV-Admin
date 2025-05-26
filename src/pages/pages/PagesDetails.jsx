@@ -25,7 +25,7 @@ const PagesDetails = () => {
     { label: "Pagetype", value: page?.userType || "N/A" },
     { label: "Pagename", value: page?.pageName || "N/A" },
     { label: "Username", value: page?.userName || "N/A" },
-    { label: "Profession", value: page?.profession || "N/A" },
+    { label: "Profession", value: page?.Category || "N/A" },
     { label: "Gender", value: page?.gender || "N/A" },
     { label: "Phone No.", value: page?.Phone || "N/A" },
     { label: "Email", value: page?.email || "N/A" },

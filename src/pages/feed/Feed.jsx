@@ -112,7 +112,7 @@ const Feed = () => {
       </div>
 
       {/* Table */}
-      <div className="mt-6 overflow-x-auto flex gap-4">
+      <div className="mt-6 overflow-x-auto flex gap-4 flex-wrap">
         {filteredFeeds.map((feed, index) => (
           <FeedsCard key={index} feed={feed} />
         ))}

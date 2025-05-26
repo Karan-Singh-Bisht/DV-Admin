@@ -34,6 +34,7 @@ const FeedDetails = () => {
         categories: feed.categories || "NA", // assuming categories is an array
         location: feed.location || "NA",
         title: feed.title || "NA",
+        link: feed.link || "NA",
       });
     }
   }, [feed]);
@@ -46,8 +47,16 @@ const FeedDetails = () => {
   };
 
   const feedDetails = [
+    {
+      label: "Platform",
+      value: feed?.platform || "N/A",
+    },
+    {
+      label: "Link",
+      name: "link",
+      value: editableFields.link,
+    },
     { label: "Username", name: "username", value: editableFields.username },
-    { label: "Title", name: "title", value: editableFields.title },
     { label: "Category", name: "category", value: editableFields.categories },
     {
       label: "Sub Category",
@@ -57,10 +66,7 @@ const FeedDetails = () => {
         )) || "N/A",
     },
     { label: "Location", name: "location", value: editableFields.location },
-    {
-      label: "Platform",
-      value: feed?.platform || "N/A",
-    },
+    { label: "Title", name: "title", value: editableFields.title },
     {
       label: "Description",
       name: "description",
