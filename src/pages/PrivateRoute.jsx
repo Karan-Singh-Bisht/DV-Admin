@@ -1,11 +1,18 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useEffect } from "react";
 
 const PrivateRoute = ({ children }) => {
-  const token = Cookies.get("token"); // Use the same cookie name as in your backend
+  const navigate = useNavigate();
+  const token = Cookies.get("token");
+  useEffect(() => {
+    if (!token) {
+      navigate("/login", { replace: true });
+    }
+  }, [token]);
 
-  return token ? children : <Navigate to="/login" replace />;
+  return token ? children : navigate("/login", { replace: true });
 };
 
 export default PrivateRoute;
