@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { API_BASE_URL } from "../../config/api";
 
 export const loginUser = createAsyncThunk(
   "auth/login",
   async (formData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/admin/login",
+        `${API_BASE_URL}/admin/login`,
         formData,
         {
           headers: {

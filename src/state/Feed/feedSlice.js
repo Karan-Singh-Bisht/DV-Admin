@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_BASE_URL } from "../../config/api";
 
 export const fetchFeeds = createAsyncThunk(
   "/feed/fetchFeeds",
@@ -7,14 +8,11 @@ export const fetchFeeds = createAsyncThunk(
     try {
       const state = getState();
       const token = state.auth?.token;
-      const response = await axios.get(
-        "http://localhost:8080/api/admin/feeds",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${API_BASE_URL}/admin/feeds`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return response.data;
     } catch (err) {
       return rejectWithValue(
@@ -30,14 +28,11 @@ export const fetchFeedDetails = createAsyncThunk(
     try {
       const state = getState();
       const token = state.auth?.token;
-      const response = await axios.get(
-        `http://localhost:8080/api/admin/feed/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${API_BASE_URL}/admin/feed/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return response.data;
     } catch (err) {
       return rejectWithValue(
@@ -55,7 +50,7 @@ export const createFeed = createAsyncThunk(
       const state = getState();
       const token = state.auth?.token;
       const response = await axios.post(
-        "http://localhost:8080/api/admin/feed",
+        `${API_BASE_URL}/admin/feed`,
         formData,
         {
           headers: {

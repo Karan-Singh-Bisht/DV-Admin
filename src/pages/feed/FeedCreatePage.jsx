@@ -9,7 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { IoMdArrowBack } from "react-icons/io";
 import { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createFeed } from "../../state/Feed/feedSlice";
 
 const categorySubcategoryMap = {
@@ -557,6 +557,7 @@ const FeedCreatePage = () => {
   const dispatch = useDispatch();
   const fileInputRef = useRef(null);
   const [url, setUrl] = useState("");
+  const { loading } = useSelector((state) => state.feed);
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imagePreview, setImagePreview] = useState("");
@@ -587,7 +588,17 @@ const FeedCreatePage = () => {
     formData.append("subCategories", JSON.stringify(feedData.subCategories));
 
     const response = await dispatch(createFeed(formData));
-    console.log(response);
+    if (response.meta.requestStatus === "fulfilled") {
+      setFeedData({
+        mediaUrl: [],
+        description: "",
+        platform: "",
+        usernameOrName: "",
+        location: "",
+        categories: "",
+        subCategories: [],
+      });
+    }
   };
 
   const handlePlatformClick = (name) => {
@@ -676,10 +687,11 @@ const FeedCreatePage = () => {
             className="flex-grow p-3 border rounded"
           />
           <button
+            disabled={loading}
             onClick={handleSubmit}
             className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 w-full sm:w-auto"
           >
-            Submit
+            {loading ? "Submitting" : "Submit"}
           </button>
         </div>
         <div className="flex justify-center items-center w-full h-full gap-4">
