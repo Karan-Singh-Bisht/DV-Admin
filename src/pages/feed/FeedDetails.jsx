@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchFeedDetails } from "../../state/Feed/feedSlice";
+import { fetchFeedDetails, deleteFeed } from "../../state/Feed/feedSlice";
+// import {toast}
 
 const FeedDetails = () => {
   const navigate = useNavigate();
@@ -29,15 +30,32 @@ const FeedDetails = () => {
   useEffect(() => {
     if (feed) {
       setEditableFields({
-        username: feed.usernameOrName || "NA",
-        description: feed.description || "NA",
-        categories: feed.categories || "NA", // assuming categories is an array
-        location: feed.location || "NA",
-        title: feed.title || "NA",
-        link: feed.link || "NA",
+        username: feed.usernameOrName || "",
+        description: feed.description || "",
+        categories: feed.categories || "", // assuming categories is an array
+        location: feed.location || "",
+        title: feed.title || "",
+        link: feed.link || "",
       });
     }
   }, [feed]);
+
+  const handleDelete = async (id) => {
+    console.log("Deleting ID:", id);
+    try {
+      const response = await dispatch(deleteFeed(id));
+
+      if (response.meta.requestStatus !== "fulfilled") {
+        console.error("Deletion failed:", response);
+      } else {
+        console.log("Deleted successfully");
+        navigate("/feeds");
+        // toast.success("Feed Deleted Successfully");
+      }
+    } catch (err) {
+      console.error("An error occurred during deletion:", err);
+    }
+  };
 
   const handleChange = (e) => {
     setEditableFields((prev) => ({
@@ -114,18 +132,18 @@ const FeedDetails = () => {
                     key={idx}
                     className="flex flex-col sm:flex-row justify-between border-b pb-3"
                   >
-                    <div className="font-semibold w-1/2">{item.label}</div>
+                    <div className="font-semibold w-1/2">{item?.label}</div>
                     <div className="w-full sm:w-1/2 text-gray-700">
-                      {item.name ? (
+                      {item?.name ? (
                         <input
                           type="text"
-                          name={item.name}
-                          value={item.value}
+                          name={item?.name}
+                          value={item?.value}
                           onChange={handleChange}
                           className="border px-2 py-1 rounded-md w-full"
                         />
                       ) : (
-                        item.value
+                        item?.value
                       )}
                     </div>
                   </div>
@@ -151,7 +169,10 @@ const FeedDetails = () => {
           </div>
           <div className="flex items-center gap-2">
             <h2 className="font-semibold">Delete Content:</h2>
-            <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md">
+            <button
+              onClick={() => handleDelete(feed._id)}
+              className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md"
+            >
               Delete
             </button>
           </div>

@@ -67,6 +67,25 @@ export const createFeed = createAsyncThunk(
   }
 );
 
+export const deleteFeed = createAsyncThunk(
+  "/feed/delete",
+  async (id, { rejectWithValue, getState }) => {
+    try {
+      console.log(id);
+      const state = getState();
+      const token = state.auth?.token;
+      const response = await axios.delete(`${API_BASE_URL}/admin/feed/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data?.message || "Failed to delete");
+    }
+  }
+);
+
 const feedSlice = createSlice({
   name: "feed",
   initialState: {
@@ -117,6 +136,18 @@ const feedSlice = createSlice({
       .addCase(createFeed.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(deleteFeed.pending, (state, action) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteFeed.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(deleteFeed.rejected, (state, action) => {
+        state.error = action.error?.message || "Failed to delete";
+        state.loading = false;
       });
   },
 });
