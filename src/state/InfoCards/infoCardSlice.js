@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_BASE_URL } from "../../config/api";
 
 export const getAllInfoCards = createAsyncThunk(
   "infoCards/getAllInfoCards",
@@ -8,7 +9,7 @@ export const getAllInfoCards = createAsyncThunk(
       const state = getState();
       const token = state.auth?.token;
       const response = await axios.get(
-        "http://localhost:8080/api/admin/get-all-infoCards",
+        `${API_BASE_URL}/admin/get-all-infoCards`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -29,7 +30,7 @@ export const getInfoCard = createAsyncThunk(
       const state = getState();
       const token = state.auth?.token;
       const response = await axios.get(
-        `http://localhost:8080/api/admin/get-info-card/${id}`,
+        `${API_BASE_URL}/admin/get-info-card/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

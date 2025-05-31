@@ -45,7 +45,6 @@ export const fetchFeedDetails = createAsyncThunk(
 export const createFeed = createAsyncThunk(
   "/feed/createFeed",
   async (formData, { rejectWithValue, getState }) => {
-    console.log(formData);
     try {
       const state = getState();
       const token = state.auth?.token;

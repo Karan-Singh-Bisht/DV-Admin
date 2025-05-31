@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_BASE_URL } from "../../config/api";
 
 export const getAllPages = createAsyncThunk(
   "pages/getAllPages",
@@ -7,14 +8,11 @@ export const getAllPages = createAsyncThunk(
     try {
       const state = getState();
       const token = state.auth?.token;
-      const response = await axios.get(
-        "http://localhost:8080/api/admin/get-all-pages",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${API_BASE_URL}/admin/get-all-pages`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return response.data;
     } catch (err) {
       return (
@@ -31,7 +29,7 @@ export const getPage = createAsyncThunk(
       const state = getState();
       const token = state.auth?.token;
       const response = await axios.get(
-        `http://localhost:8080/api/admin/get-page-details/${id}`,
+        `${API_BASE_URL}/admin/get-page-details/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -54,7 +52,7 @@ export const deletePage = createAsyncThunk(
       const state = getState();
       const token = state.auth?.token;
       const response = await axios.delete(
-        `http://localhost:8080/api/admin/delete-page/${id}`,
+        `${API_BASE_URL}/admin/delete-page/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

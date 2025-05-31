@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_BASE_URL } from "../../config/api";
 
 export const getAllUsers = createAsyncThunk(
   "users/getAllUsers",
@@ -7,14 +8,11 @@ export const getAllUsers = createAsyncThunk(
     try {
       const state = getState();
       const token = state.auth?.token;
-      const response = await axios.get(
-        "http://localhost:8080/api/admin/get-all-users",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${API_BASE_URL}/admin/get-all-users`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return response.data;
     } catch (err) {
       return (
@@ -31,7 +29,7 @@ export const getUser = createAsyncThunk(
       const state = getState();
       const token = state.auth?.token;
       const response = await axios.get(
-        `http://localhost:8080/api/admin/get-user-details/${id}`,
+        `${API_BASE_URL}/admin/get-user-details/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -54,7 +52,7 @@ export const deleteUser = createAsyncThunk(
       const state = getState();
       const token = state.auth?.token;
       const response = await axios.delete(
-        `http://localhost:8080/api/admin/delete-user/${id}`,
+        `${API_BASE_URL}/admin/delete-user/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -84,7 +82,7 @@ export const createUserAvatar = createAsyncThunk(
       formData.append("category", category);
 
       const response = await axios.post(
-        `http://localhost:8080/api/admin/avatar/upload-avataruser`,
+        `${API_BASE_URL}/admin/avatar/upload-avataruser`,
         formData,
         {
           headers: {

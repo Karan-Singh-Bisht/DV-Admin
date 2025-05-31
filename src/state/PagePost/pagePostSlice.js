@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_BASE_URL } from "../../config/api";
 
 export const getAllPagePosts = createAsyncThunk(
   "pagePost/getAllPagePosts",
@@ -8,7 +9,7 @@ export const getAllPagePosts = createAsyncThunk(
       const state = getState();
       const token = state.auth?.token;
       const response = await axios.get(
-        `http://localhost:8080/api/admin/get-all-page-posts`,
+        `${API_BASE_URL}/admin/get-all-page-posts`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -29,7 +30,7 @@ export const getPagePost = createAsyncThunk(
       const state = getState();
       const token = state.auth?.token;
       const response = await axios.get(
-        `http://localhost:8080/api/admin/get-page-post/${id}`,
+        `${API_BASE_URL}/admin/get-page-post/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
