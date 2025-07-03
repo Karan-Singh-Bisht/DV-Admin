@@ -14,10 +14,9 @@ export const loginUser = createAsyncThunk(
           headers: {
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
       );
-      const token = response.data.token;
-      Cookies.set("token", token, { expires: 7 });
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response?.data);

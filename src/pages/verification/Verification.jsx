@@ -2,45 +2,29 @@ import { useLocation } from "react-router-dom";
 import Header from "../../components/Header";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-const userDetails = [
-  {
-    userId: 1,
-    selfie: "",
-    userType: "Individual",
-    fullName: "Ronald Ragen",
-    aadharCard: "/vite.svg",
-    panCard: "",
-    phoneNumber: "9012798393",
-    verified: true,
-  },
-  {
-    userId: 2,
-    selfie: "",
-    userType: "Individual",
-    fullName: "Ronald Ragen",
-    aadharCard: "",
-    panCard: "/vite.svg",
-    phoneNumber: "9012798393",
-    verified: true,
-  },
-  {
-    userId: 3,
-    selfie: "",
-    userType: "Individual",
-    fullName: "Ronald Ragen",
-    aadharCard: "",
-    panCard: "/tv.webp",
-    phoneNumber: "9012798393",
-    verified: true,
-  },
-];
+import { useSelector, useDispatch } from "react-redux";
+import { getAllUserVerifications } from "../../state/UserVerification/userVerificationSlice";
 
 const Verification = () => {
   const [openMenuId, setOpenMenuId] = useState(0);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userDetails = useSelector(
+    (state) => state.userVerification.userVerifications
+  );
+
+  useEffect(() => {
+    const fetchVerificationRequests = async () => {
+      try {
+        await dispatch(getAllUserVerifications());
+      } catch (err) {
+        console.error("Failed to fetch user verifications", err);
+      }
+    };
+    fetchVerificationRequests();
+  }, []);
 
   const handleMenuToggle = (userId) => {
     setOpenMenuId((prevId) => (prevId === userId ? null : userId));
@@ -85,10 +69,9 @@ const Verification = () => {
         <table className="min-w-full table-auto border-collapse">
           <thead className="bg-[#101338] text-white text-left">
             <tr>
-              <th className="p-3">
-                <input type="checkbox" />
-              </th>
+              <th className="p-3">#</th>
               <th className="p-3 uppercase">User ID</th>
+              <th className="p-3 uppercase">Request ID</th>
               <th className="p-3 uppercase">Selfie</th>
               <th className="p-3 uppercase">User Type</th>
               <th className="p-3 uppercase">Full Name</th>
@@ -99,20 +82,19 @@ const Verification = () => {
             </tr>
           </thead>
           <tbody>
-            {userDetails?.map((userDetail) => (
+            {userDetails?.map((userDetail, index) => (
               <tr
-                onClick={() => handleNavigate(userDetail.userId)}
-                key={userDetail.userId}
+                onClick={() => handleNavigate(userDetail._id)}
+                key={userDetail._id}
                 className="border-b border-[#1a1e3f] hover:bg-[#1c2045] hover:cursor-pointer transition relative"
               >
-                <td className="p-3">
-                  <input type="checkbox" />
-                </td>
-                <td className="p-3">{userDetail.userId}</td>
+                <td className="p-3">{index + 1}</td>
+                <td className="p-3">{userDetail?.user?._id}</td>
+                <td className="p-3">{userDetail?._id}</td>
                 <td className="p-3">
                   <img
                     src={
-                      userDetail.selfie ||
+                      userDetail?.authorizedSelfie ||
                       "https://ui-avatars.com/api/?name=" +
                         encodeURIComponent(userDetail.fullName)
                     }
@@ -120,32 +102,20 @@ const Verification = () => {
                     className="w-10 h-10 rounded-md object-cover"
                   />
                 </td>
-                <td className="p-3">{userDetail.userType}</td>
-                <td className="p-3">{userDetail.fullName}</td>
+                <td className="p-3">Individual</td>
+                <td className="p-3">{userDetail?.user?.username}</td>
                 <td className="p-3">
-                  {userDetail.aadharCard ? (
-                    <div className="flex items-center gap-2">
-                      <img
-                        src={userDetail.aadharCard}
-                        className="object-cover w-10"
-                        alt="aadharCard"
-                      />
-                      <p>Aadhar</p>
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-2">
-                      <img
-                        src={userDetail.panCard}
-                        className="object-cover w-10"
-                        alt="PanCard"
-                      />
-                      <p>Pan</p>
-                    </div>
-                  )}
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={userDetail.identityDocument}
+                      className="object-cover w-10"
+                      alt="aadharCard"
+                    />
+                  </div>
                 </td>
-                <td className="p-3">{userDetail.phoneNumber}</td>
+                <td className="p-3">{userDetail?.user?.phoneNumber}</td>
                 <td className="p-3">
-                  {userDetail.verified ? (
+                  {userDetail?.user?.isVerified ? (
                     <FaCheckCircle className="text-green-400" />
                   ) : (
                     <FaTimesCircle className="text-red-400" />

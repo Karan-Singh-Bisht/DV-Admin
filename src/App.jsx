@@ -28,6 +28,9 @@ import InfocardDetails from "./pages/infocard/InfocardDetails";
 import PopPins from "./poppins/PopPins";
 import BuddyMapo from "./pages/buddyMapo/BuddyMapo";
 import PrivateRoute from "./pages/PrivateRoute";
+import ReportDetails from "./pages/report/ReportDetails";
+import PageReport from "./pages/pageReport/PageReport";
+import PageReportDetails from "./pages/pageReport/PageReportDetails";
 
 const App = () => {
   const location = useLocation();
@@ -71,185 +74,209 @@ const App = () => {
           <Route
             path="/eCommerce"
             element={
-              // <PrivateRoute>
-              <Ecommerce />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <Ecommerce />
+              </PrivateRoute>
             }
           />
           <Route
             path="/users"
             element={
-              // <PrivateRoute>
-              <Buddy />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <Buddy />
+              </PrivateRoute>
             }
           />
           <Route
             path="/users/:id"
             element={
-              // <PrivateRoute>
-              <BuddyDetails />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <BuddyDetails />
+              </PrivateRoute>
             }
           />
           <Route
             path="/pages"
             element={
-              // <PrivateRoute>
-              <Pages />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <Pages />
+              </PrivateRoute>
             }
           />
           <Route
             path="/pages/:id"
             element={
-              // <PrivateRoute>
-              <PagesDetails />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <PagesDetails />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/page/report"
+            element={
+              <PrivateRoute>
+                <PageReport />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/page/report/:reportId"
+            element={
+              <PrivateRoute>
+                <PageReportDetails />
+              </PrivateRoute>
             }
           />
           <Route
             path="/verification"
             element={
-              // <PrivateRoute>
-              <Verification />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <Verification />
+              </PrivateRoute>
             }
           />
           <Route
-            path="/verification/:userId"
+            path="/verification/:userRequestId"
             element={
-              // <PrivateRoute>
-              <VerificationDetails />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <VerificationDetails />
+              </PrivateRoute>
             }
           />
           <Route
             path="/businessVerification"
             element={
-              // <PrivateRoute>
-              <BusinessVerification />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <BusinessVerification />
+              </PrivateRoute>
             }
           />
           <Route
             path="/businessVerificationDetails/:pageId"
             element={
-              // <PrivateRoute>
-              <BusinessVerificationDetails />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <BusinessVerificationDetails />
+              </PrivateRoute>
             }
           />
           <Route
             path="/creatorVerification"
             element={
-              // <PrivateRoute>
-              <CreatorVerification />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <CreatorVerification />
+              </PrivateRoute>
             }
           />
           <Route
             path="/creatorVerificationDetails/:pageId"
             element={
-              // <PrivateRoute>
-              <CreatorVerificationDetails />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <CreatorVerificationDetails />
+              </PrivateRoute>
             }
           />
           <Route
             path="/report"
             element={
-              // <PrivateRoute>
-              <Report />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <Report />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/report/:reportId"
+            element={
+              <PrivateRoute>
+                <ReportDetails />
+              </PrivateRoute>
             }
           />
           <Route
             path="/buddyPosts"
             element={
-              // <PrivateRoute>
-              <BuddyPost />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <BuddyPost />
+              </PrivateRoute>
             }
           />
           <Route
             path="/buddyPost/:id"
             element={
-              // <PrivateRoute>
-              <BuddyPostCardDetail />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <BuddyPostCardDetail />
+              </PrivateRoute>
             }
           />
           <Route
             path="/pagePosts"
             element={
-              // <PrivateRoute>
-              <PagePost />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <PagePost />
+              </PrivateRoute>
             }
           />
           <Route
             path="/pagePosts/:id"
             element={
-              // <PrivateRoute>
-              <PagePostDetails />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <PagePostDetails />
+              </PrivateRoute>
             }
           />
           <Route
             path="/feeds"
             element={
-              // <PrivateRoute>
-              <Feed />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <Feed />
+              </PrivateRoute>
             }
           />
           <Route
             path="/feeds/:id"
             element={
-              // <PrivateRoute>
-              <FeedDetails />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <FeedDetails />
+              </PrivateRoute>
             }
           />
           <Route
             path="/feeds/create"
             element={
-              // <PrivateRoute>
-              <FeedCreatePage />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <FeedCreatePage />
+              </PrivateRoute>
             }
           />
           <Route
             path="/infocards"
             element={
-              // <PrivateRoute>
-              <Infocard />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <Infocard />
+              </PrivateRoute>
             }
           />
           <Route
             path="infocards/:pageId"
             element={
-              // <PrivateRoute>
-              <InfocardDetails />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <InfocardDetails />
+              </PrivateRoute>
             }
           />
           <Route
             path="/poppins"
             element={
-              // <PrivateRoute>
-              <PopPins />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <PopPins />
+              </PrivateRoute>
             }
           />
           <Route
             path="/buddiesMapo"
             element={
-              // <PrivateRoute>
-              <BuddyMapo />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <BuddyMapo />
+              </PrivateRoute>
             }
           />
         </Routes>

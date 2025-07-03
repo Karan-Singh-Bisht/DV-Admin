@@ -2,32 +2,28 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useState } from "react";
-
-const businessDetails = [
-  {
-    pageId: "1",
-    username: "acmecorp_official",
-    pageName: "Acme Corporation",
-    pageType: "Business",
-    roleType: "Admin",
-    selfie: "",
-    fullName: "John Doe",
-    phoneNumber: "9876543210",
-    email: "contact@acme.com",
-    aadhar: "/vite.svg",
-    panCard: "",
-    links: [
-      "https://acme.com",
-      "https://facebook.com/acme",
-      "https://localhost:5050",
-    ],
-    verified: false,
-  },
-  // Add more as needed
-];
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllBusinessVerification } from "../../state/BusinessVerification/businessVerificationSlice";
 
 const BusinessVerification = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const businessVerificationDetails = async () => {
+      try {
+        await dispatch(fetchAllBusinessVerification());
+      } catch (err) {
+        console.error("Error fetching business verification details:", err);
+      }
+    };
+    businessVerificationDetails();
+  }, []);
+
+  const allDetails = useSelector(
+    (state) => state.businessVerification.businessVerifications
+  );
+
+  const businessDetails = allDetails.filter((detail) => detail.page?.isCreator);
   const [openMenuId, setOpenMenuId] = useState(0);
   const navigate = useNavigate();
 
@@ -76,6 +72,7 @@ const BusinessVerification = () => {
           <thead className="bg-[#101338] text-white text-left">
             <tr>
               <th className="p-3">#</th>
+              <th className="p-3 uppercase">Request ID</th>
               <th className="p-3 uppercase">Page ID</th>
               <th className="p-3 uppercase">Page Type</th>
               <th className="p-3 uppercase">Username</th>
@@ -94,40 +91,57 @@ const BusinessVerification = () => {
           <tbody>
             {businessDetails.map((detail, index) => (
               <tr
-                key={detail.pageId}
-                onClick={() => handleNavigate(detail.pageId)}
+                key={detail._id}
+                onClick={() => handleNavigate(detail._id)}
                 className="border-b border-[#1a1e3f] hover:bg-[#1c2045] hover:cursor-pointer transition relative"
               >
                 <td className="p-3">{index + 1}</td>
-                <td className="p-3">{detail.pageId}</td>
-                <td className="p-3">{detail.pageType}</td>
-                <td className="p-3">{detail.username}</td>
-                <td className="p-3">{detail.pageName}</td>
+                <td className="p-3">{detail._id}</td>
+                <td className="p-3">{detail.page._id}</td>
                 <td className="p-3">
-                  {detail.aadhar ? (
-                    <div className="flex flex-col items-center gap-2">
+                  {detail.page?.isCreator ? "Creator" : "Business"}
+                </td>
+                <td className="p-3">{detail.user?.username}</td>
+                <td className="p-3">{detail.page?.pageName}</td>
+                <td className="p-3">
+                  {detail.businessDoc ? (
+                    <div className="flex flex-col items-center gap-1">
                       <img
+                        src={detail.businessDoc}
+                        alt="Doc"
                         className="h-[3vw] w-[3vw]"
-                        src={`${detail.aadhar}`}
-                        alt="Aadhar"
                       />
-                      <p className="text-sm">Aadhar</p>
+                      <p className="text-xs">Document</p>
+                    </div>
+                  ) : detail.businessPhoto ? (
+                    <div className="flex flex-col items-center gap-1">
+                      <img
+                        src={detail.businessPhoto}
+                        alt="Photo"
+                        className="h-[3vw] w-[3vw]"
+                      />
+                      <p className="text-xs">Photo</p>
+                    </div>
+                  ) : detail.authorizedSelfie ? (
+                    <div className="flex flex-col items-center gap-1">
+                      <img
+                        src={detail.authorizedSelfie}
+                        alt="Selfie"
+                        className="h-[3vw] w-[3vw]"
+                      />
+                      <p className="text-xs">Selfie</p>
                     </div>
                   ) : (
-                    <div className="flex gap-2">
-                      <img
-                        className="h-[3vw] w-[3vw]"
-                        src={`${detail.pan}`}
-                        alt="pan"
-                      />
-                      <p>Pan</p>
-                    </div>
+                    <p className="text-xs text-gray-500 italic">
+                      No document uploaded
+                    </p>
                   )}
                 </td>
+
                 <td className="p-3">
                   <img
                     src={
-                      detail.selfie ||
+                      detail.authorizedSelfie ||
                       `https://ui-avatars.com/api/?name=${encodeURIComponent(
                         detail.fullName
                       )}`
@@ -138,12 +152,12 @@ const BusinessVerification = () => {
                 </td>
                 <td className="p-3">{detail.fullName}</td>
                 <td className="p-3">{detail.roleType}</td>
-                <td className="p-3">{detail.phoneNumber}</td>
-                <td className="p-3">{detail.email}</td>
+                <td className="p-3">{detail.user?.phoneNumber}</td>
+                <td className="p-3">{detail.user?.mailAddress}</td>
                 <td className="p-3">
                   {detail.links?.length > 0 ? (
                     <ul className="list-disc list-inside">
-                      {detail.links.slice(0, 3).map((link, i) => (
+                      {detail.page?.links.slice(0, 3).map((link, i) => (
                         <li onClick={(e) => e.stopPropagation()} key={i}>
                           <a
                             href={link}
@@ -161,7 +175,7 @@ const BusinessVerification = () => {
                   )}
                 </td>
                 <td className="p-3">
-                  {detail.verified ? (
+                  {detail.page?.isVerified ? (
                     <FaCheckCircle className="text-green-400" />
                   ) : (
                     <FaTimesCircle className="text-red-400" />

@@ -6,12 +6,8 @@ export const getAllPages = createAsyncThunk(
   "pages/getAllPages",
   async (_, { rejectWithValue, getState }) => {
     try {
-      const state = getState();
-      const token = state.auth?.token;
       const response = await axios.get(`${API_BASE_URL}/admin/get-all-pages`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        withCredentials: true,
       });
       return response.data;
     } catch (err) {
@@ -26,14 +22,10 @@ export const getPage = createAsyncThunk(
   "pages/getPage",
   async (id, { rejectWithValue, getState }) => {
     try {
-      const state = getState();
-      const token = state.auth?.token;
       const response = await axios.get(
         `${API_BASE_URL}/admin/get-page-details/${id}`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          withCredentials: true,
         }
       );
       return response.data;
@@ -49,14 +41,10 @@ export const deletePage = createAsyncThunk(
   "pages/deletePage",
   async (id, { rejectWithValue, getState }) => {
     try {
-      const state = getState();
-      const token = state.auth?.token;
       const response = await axios.delete(
         `${API_BASE_URL}/admin/delete-page/${id}`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          withCredentials: true,
         }
       );
       return response.data;

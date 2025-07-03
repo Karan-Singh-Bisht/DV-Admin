@@ -1,8 +1,9 @@
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { getUser } from "../../state/User/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser, deleteUser } from "../../state/User/userSlice";
+import Loader from "../../components/Loader";
 
 const BuddyDetails = () => {
   const navigate = useNavigate();
@@ -10,6 +11,8 @@ const BuddyDetails = () => {
   const dispatch = useDispatch();
   const id = params.id;
   const [post, setPost] = useState({});
+  const [sensitive, setSensitive] = useState(false);
+  const { loading } = useSelector((state) => state.user);
 
   useEffect(() => {
     const getUserDetails = async () => {
@@ -23,6 +26,16 @@ const BuddyDetails = () => {
     if (id) getUserDetails();
   }, [dispatch, id]);
 
+  const handleDelete = async (id) => {
+    try {
+      await dispatch(deleteUser(id));
+      navigate("/users");
+      // toast.success("User deleted successfully");
+    } catch (err) {
+      console.error("Failed to delete user", err);
+    }
+  };
+
   const formatDate = (dateStr) => {
     if (!dateStr) return "N/A";
     const date = new Date(dateStr);
@@ -33,7 +46,9 @@ const BuddyDetails = () => {
     return `${day}-${month}-${year}`;
   };
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="flex w-full h-[47vw] justify-center items-center p-4">
       <div className="w-full max-w-8xl mx-auto bg-white rounded-xl shadow-md p-6">
         {/* Header with back button and posted by */}
@@ -96,8 +111,13 @@ const BuddyDetails = () => {
         <div className="flex flex-wrap justify-end gap-4 mt-8 border-t pt-6">
           <div className="flex items-center gap-2">
             <h2 className="font-semibold">Terminate Content:</h2>
-            <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
-              Non Sensitive
+            <button
+              onClick={() => setSensitive(!sensitive)}
+              className={`${
+                sensitive ? "bg-red-500" : "bg-green-500"
+              } text-white px-4 py-2 rounded-md`}
+            >
+              {sensitive ? "Sensitive" : "Non Sensitive"}
             </button>
           </div>
           <div className="flex items-center gap-2">
@@ -108,7 +128,10 @@ const BuddyDetails = () => {
           </div>
           <div className="flex items-center gap-2">
             <h2 className="font-semibold">Delete Content:</h2>
-            <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md">
+            <button
+              onClick={() => handleDelete(id)}
+              className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md"
+            >
               Delete
             </button>
           </div>

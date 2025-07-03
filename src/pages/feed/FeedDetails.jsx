@@ -118,7 +118,7 @@ const FeedDetails = () => {
             {/* Image */}
             <div className="flex-1 flex justify-center">
               <img
-                src={feed?.mediaUrl || "/picture.png"}
+                src={feed?.mediaUrl || feed?.mediaUrl[0] || "/picture.png"}
                 alt="Feed"
                 className="rounded-lg object-contain max-h-128 h-[30vw] w-full lg:w-[100%]"
               />

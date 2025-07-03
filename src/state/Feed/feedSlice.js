@@ -6,12 +6,8 @@ export const fetchFeeds = createAsyncThunk(
   "/feed/fetchFeeds",
   async (_, { rejectWithValue, getState }) => {
     try {
-      const state = getState();
-      const token = state.auth?.token;
       const response = await axios.get(`${API_BASE_URL}/admin/feeds`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        withCredentials: true,
       });
       return response.data;
     } catch (err) {
@@ -26,12 +22,8 @@ export const fetchFeedDetails = createAsyncThunk(
   "/feed/fetchFeedDetails",
   async (id, { rejectWithValue, getState }) => {
     try {
-      const state = getState();
-      const token = state.auth?.token;
       const response = await axios.get(`${API_BASE_URL}/admin/feed/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        withCredentials: true,
       });
       return response.data;
     } catch (err) {
@@ -46,15 +38,11 @@ export const createFeed = createAsyncThunk(
   "/feed/createFeed",
   async (formData, { rejectWithValue, getState }) => {
     try {
-      const state = getState();
-      const token = state.auth?.token;
       const response = await axios.post(
         `${API_BASE_URL}/admin/feed`,
         formData,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          withCredentials: true,
         }
       );
       return response.data;
@@ -70,14 +58,12 @@ export const deleteFeed = createAsyncThunk(
   "/feed/delete",
   async (id, { rejectWithValue, getState }) => {
     try {
-      console.log(id);
-      const state = getState();
-      const token = state.auth?.token;
-      const response = await axios.delete(`${API_BASE_URL}/admin/feed/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.delete(
+        `${API_BASE_URL}/admin/visiofeed/${id}`,
+        {
+          withCredentials: true,
+        }
+      );
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Failed to delete");

@@ -19,7 +19,9 @@ const PagesPostCard = (props) => {
         {/* Post Image */}
         <div className="my-4">
           <img
-            src={props.pagePost?.media[0]?.path || props.pagePost?.coverPhoto}
+            src={
+              props.pagePost?.media[0]?.path || props.pagePost?.coverPhoto?.path
+            }
             alt="User post"
             className="w-full rounded-xl h-[40vw] md:h-[20vw] object-cover"
           />

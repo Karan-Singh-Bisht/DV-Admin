@@ -6,14 +6,10 @@ export const getAllPagePosts = createAsyncThunk(
   "pagePost/getAllPagePosts",
   async (_, { rejectWithValue, getState }) => {
     try {
-      const state = getState();
-      const token = state.auth?.token;
       const response = await axios.get(
         `${API_BASE_URL}/admin/get-all-page-posts`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          withCredentials: true,
         }
       );
       return response.data;
@@ -27,17 +23,30 @@ export const getPagePost = createAsyncThunk(
   "/pagePost/getPagePost",
   async (id, { rejectWithValue, getState }) => {
     try {
-      const state = getState();
-      const token = state.auth?.token;
       const response = await axios.get(
         `${API_BASE_URL}/admin/get-page-post/${id}`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          withCredentials: true,
         }
       );
       console.log(response.data);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
+export const deletePost = createAsyncThunk(
+  "pagePost/deletePost",
+  async (id, { rejectWithValue, getState }) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8080/api/admin/delete-page-post/${id}`,
+        {
+          withCredentials: true,
+        }
+      );
       return response.data;
     } catch (err) {
       return rejectWithValue(err.message);
@@ -81,6 +90,19 @@ const pagePostSlice = createSlice({
       .addCase(getPagePost.rejected, (state, action) => {
         state.error = action.payload;
         state.loading = false;
+      })
+      .addCase(deletePost.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.pagePosts = action.payload;
+        state.error = null;
+      })
+      .addCase(deletePost.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });

@@ -6,12 +6,8 @@ export const getAllUsers = createAsyncThunk(
   "users/getAllUsers",
   async (_, { rejectWithValue, getState }) => {
     try {
-      const state = getState();
-      const token = state.auth?.token;
       const response = await axios.get(`${API_BASE_URL}/admin/get-all-users`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        withCredentials: true,
       });
       return response.data;
     } catch (err) {
@@ -26,14 +22,10 @@ export const getUser = createAsyncThunk(
   "users/getUser",
   async (id, { rejectWithValue, getState }) => {
     try {
-      const state = getState();
-      const token = state.auth?.token;
       const response = await axios.get(
         `${API_BASE_URL}/admin/get-user-details/${id}`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          withCredentials: true,
         }
       );
       return response.data;
@@ -49,14 +41,10 @@ export const deleteUser = createAsyncThunk(
   "users/deleteUser",
   async (id, { rejectWithValue, getState }) => {
     try {
-      const state = getState();
-      const token = state.auth?.token;
       const response = await axios.delete(
         `${API_BASE_URL}/admin/delete-user/${id}`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          withCredentials: true,
         }
       );
       return response.data;
@@ -74,9 +62,6 @@ export const createUserAvatar = createAsyncThunk(
     const { category, file } = payload;
 
     try {
-      const state = getState();
-      const token = state.auth?.token;
-
       const formData = new FormData();
       formData.append("avatar", file);
       formData.append("category", category);
@@ -86,9 +71,9 @@ export const createUserAvatar = createAsyncThunk(
         formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
+          withCredentials: true,
         }
       );
 

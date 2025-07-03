@@ -6,14 +6,10 @@ export const getAllInfoCards = createAsyncThunk(
   "infoCards/getAllInfoCards",
   async (_, { rejectWithValue, getState }) => {
     try {
-      const state = getState();
-      const token = state.auth?.token;
       const response = await axios.get(
         `${API_BASE_URL}/admin/get-all-infoCards`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          withCredentials: true,
         }
       );
       return response.data;
@@ -27,14 +23,10 @@ export const getInfoCard = createAsyncThunk(
   "infocards/getInfoCard",
   async (id, { rejectWithValue, getState }) => {
     try {
-      const state = getState();
-      const token = state.auth?.token;
       const response = await axios.get(
         `${API_BASE_URL}/admin/get-info-card/${id}`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          withCredentials: true,
         }
       );
       return response.data;

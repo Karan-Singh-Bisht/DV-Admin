@@ -1,21 +1,21 @@
 import { useLocation } from "react-router-dom";
 import Header from "../../components/Header";
-import { getAllReports } from "../../state/Report/ReportSlice";
+import { getAllReportedPages } from "../../state/Report/PageReportSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Report = () => {
+const PageReport = () => {
   const Location = useLocation();
   const pageName = Location.pathname.slice(1);
   const dispatch = useDispatch();
-  const Reports = useSelector((state) => state.userReport?.reports);
+  const Reports = useSelector((state) => state.pageReport?.pageReports);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchReports = async () => {
       try {
-        await dispatch(getAllReports());
+        await dispatch(getAllReportedPages());
       } catch (err) {
         console.error("Failed to fetch reports", err);
       }
@@ -24,7 +24,7 @@ const Report = () => {
   }, [dispatch]);
 
   const handleNavigate = (reportId) => {
-    navigate(`/report/${reportId}`);
+    navigate(`/page/report/${reportId}`);
   };
 
   return (
@@ -32,8 +32,8 @@ const Report = () => {
       <div className="flex justify-between items-center">
         <Header
           pageName={pageName}
-          title={"Reported Users"}
-          subtitle={"List of all user reports"}
+          title={"Reported Pages"}
+          subtitle={"List of all reported pages"}
         />
       </div>
       <div className="overflow-x-auto p-4 bg-[#0d1028] relative mt-4 text-white">
@@ -42,7 +42,7 @@ const Report = () => {
             <tr>
               <th className="p-3">#</th>
               {/* <th className="p-3 uppercase">Report ID</th> */}
-              <th className="p-3 uppercase">Reported User</th>
+              <th className="p-3 uppercase">Reported Pages</th>
               <th className="p-3 uppercase">Reason</th>
               <th className="p-3 uppercase">Reported By</th>
             </tr>
@@ -56,7 +56,7 @@ const Report = () => {
               >
                 <td className="p-3">{index + 1}</td>
                 {/* <td className="p-3">{report._id}</td> */}
-                <td className="p-3">{report?.userId?.name || "Unknown"}</td>
+                <td className="p-3">{report?.pageId?.pageName || "Unknown"}</td>
                 <td className="p-3">{report.reason}</td>
                 <td className="p-3">{report?.reportedBy?.name || "Unknown"}</td>
               </tr>
@@ -71,4 +71,4 @@ const Report = () => {
   );
 };
 
-export default Report;
+export default PageReport;
