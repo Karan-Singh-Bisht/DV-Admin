@@ -20,8 +20,6 @@ const FeedDetails = () => {
     title: "",
   });
 
-  console.log(feed);
-
   // Fetch feed on mount
   useEffect(() => {
     dispatch(fetchFeedDetails(id));
@@ -41,7 +39,6 @@ const FeedDetails = () => {
   }, [feed]);
 
   const handleDelete = async (id) => {
-    console.log("Deleting ID:", id);
     try {
       const response = await dispatch(deleteFeed(id));
 

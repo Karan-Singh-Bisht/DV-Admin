@@ -18,8 +18,6 @@ const PagesDetails = () => {
     }
   }, [dispatch, id]);
 
-  console.log(page);
-
   const postDetails = [
     { label: "PageId", value: page?.id || id },
     { label: "Pagetype", value: page?.userType || "N/A" },

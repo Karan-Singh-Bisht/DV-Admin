@@ -121,7 +121,6 @@ const PagesGridView = ({ page }) => {
               className="block w-full text-left px-4 py-2 hover:bg-gray-700"
               onClick={(e) => {
                 e.stopPropagation();
-                console.log("Update page:", page._id);
                 setIsMenuOpen(false);
               }}
             >

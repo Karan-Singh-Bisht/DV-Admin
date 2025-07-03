@@ -23,7 +23,6 @@ const Infocard = () => {
   useEffect(() => {
     const getInfoCards = async () => {
       const response = await dispatch(getAllInfoCards());
-      console.log(response);
     };
 
     getInfoCards();

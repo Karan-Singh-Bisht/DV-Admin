@@ -68,7 +68,6 @@ const Buddy = () => {
       );
 
       if (actionResult.meta.requestStatus === "fulfilled") {
-        console.log("Avatar uploaded successfully:", actionResult.payload);
         //Add Sonner Toast later
         setShowModal(false);
       } else {

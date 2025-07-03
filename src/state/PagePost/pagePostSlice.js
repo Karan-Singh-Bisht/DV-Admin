@@ -29,7 +29,6 @@ export const getPagePost = createAsyncThunk(
           withCredentials: true,
         }
       );
-      console.log(response.data);
       return response.data;
     } catch (err) {
       return rejectWithValue(err.message);

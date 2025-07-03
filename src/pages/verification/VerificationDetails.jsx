@@ -35,7 +35,6 @@ const VerificationDetails = () => {
 
   const handleApprove = async (userRequestId, userId) => {
     try {
-      console.log(userRequestId, userId);
       await dispatch(approveUserVerificationRequest({ userRequestId, userId }));
       alert("User verification approved successfully!");
     } catch (error) {
