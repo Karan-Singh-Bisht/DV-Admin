@@ -18,6 +18,7 @@ const FeedDetails = () => {
     categories: "",
     location: "",
     title: "",
+    link: "",
   });
 
   // Fetch feed on mount
