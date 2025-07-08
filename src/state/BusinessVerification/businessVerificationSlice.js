@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_BASE_URL } from "../../config/api";
 
 export const fetchAllBusinessVerification = createAsyncThunk(
   "businessVerification/fetchAllBusinessVerification",
-  async (_, { rejectWithValue, getState }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/admin/get-all-business-verification-requests",
+        `${API_BASE_URL}/admin/get-all-business-verification-requests`,
         { withCredentials: true }
       );
       return response.data;
@@ -18,10 +19,10 @@ export const fetchAllBusinessVerification = createAsyncThunk(
 
 export const fetchSpecificBusinessVerification = createAsyncThunk(
   "businessVerification/fetchSpecificBusinessVerification",
-  async (id, { rejectWithValue, getState }) => {
+  async (id, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/admin/business-verification-request/${id}`,
+        `${API_BASE_URL}/admin/business-verification-request/${id}`,
         { withCredentials: true }
       );
       return response.data;

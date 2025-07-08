@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getPage } from "../../state/Page/pageSlice";
+import Loader from "../../components/Loader";
 
 const PagesDetails = () => {
   const navigate = useNavigate();
@@ -33,7 +34,9 @@ const PagesDetails = () => {
     { label: "Updated at", value: page?.updatedAt.slice(0, 10) || "N/A" },
   ];
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="flex w-full h-screen justify-center items-center p-4">
       <div className="w-full max-w-8xl mx-auto bg-white rounded-xl shadow-md p-6">
         <div className="flex items-center justify-between border-b pb-4 mb-6 text-gray-700">

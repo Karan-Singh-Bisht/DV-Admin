@@ -4,11 +4,13 @@ import { getAllReportedPages } from "../../state/Report/PageReportSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../components/Loader";
 
 const PageReport = () => {
   const Location = useLocation();
   const pageName = Location.pathname.slice(1);
   const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.pageReport);
   const Reports = useSelector((state) => state.pageReport?.pageReports);
   const navigate = useNavigate();
 
@@ -17,6 +19,7 @@ const PageReport = () => {
       try {
         await dispatch(getAllReportedPages());
       } catch (err) {
+        toast(err, { style: { background: "red" } });
         console.error("Failed to fetch reports", err);
       }
     };
@@ -27,7 +30,9 @@ const PageReport = () => {
     navigate(`/page/report/${reportId}`);
   };
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="m-[20px]">
       <div className="flex justify-between items-center">
         <Header

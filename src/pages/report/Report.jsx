@@ -4,11 +4,13 @@ import { getAllReports } from "../../state/Report/ReportSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../components/Loader";
 
 const Report = () => {
   const Location = useLocation();
   const pageName = Location.pathname.slice(1);
   const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.userReport);
   const Reports = useSelector((state) => state.userReport?.reports);
   const navigate = useNavigate();
 
@@ -27,7 +29,9 @@ const Report = () => {
     navigate(`/report/${reportId}`);
   };
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="m-[20px]">
       <div className="flex justify-between items-center">
         <Header

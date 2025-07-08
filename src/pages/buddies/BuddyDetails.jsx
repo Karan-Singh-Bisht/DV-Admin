@@ -20,6 +20,7 @@ const BuddyDetails = () => {
         const response = await dispatch(getUser(id)).unwrap();
         setPost(response);
       } catch (err) {
+        toast(err, { style: { background: "red" } });
         console.error("Failed to fetch user", err);
       }
     };

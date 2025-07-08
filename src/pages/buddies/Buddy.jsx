@@ -21,6 +21,7 @@ const Buddy = () => {
       try {
         await dispatch(getAllUsers());
       } catch (error) {
+        toast(error, { style: { background: "red" } });
         console.error("Failed to fetch users:", error);
       }
     };

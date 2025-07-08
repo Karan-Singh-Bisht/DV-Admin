@@ -8,6 +8,7 @@ import PageTable from "../../components/PageTable";
 import PagesGridView from "../../components/PagesGridView";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPages } from "../../state/Page/pageSlice";
+import Loader from "../../components/Loader";
 
 const Pages = () => {
   const location = useLocation();
@@ -18,6 +19,7 @@ const Pages = () => {
   const pages = useSelector((state) => state.page.pages);
   const [verifiedFilter, setVerifiedFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
+  const { loading, error } = useSelector((state) => state.page);
 
   const filteredPages = pages.filter((page) => {
     const matchesSearch =
@@ -38,10 +40,20 @@ const Pages = () => {
   });
 
   useEffect(() => {
-    dispatch(getAllPages());
+    const allPages = async () => {
+      try {
+        await dispatch(getAllPages());
+      } catch (err) {
+        toast(err, { style: { background: "red" } });
+        console.error(err);
+      }
+    };
+    allPages();
   }, [dispatch]);
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="p-4 min-h-screen text-white">
       {/* Header and Button */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">

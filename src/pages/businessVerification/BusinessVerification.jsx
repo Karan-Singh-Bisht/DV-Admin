@@ -5,6 +5,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllBusinessVerification } from "../../state/BusinessVerification/businessVerificationSlice";
+import Loader from "../../components/Loader";
 
 const BusinessVerification = () => {
   const dispatch = useDispatch();
@@ -13,14 +14,19 @@ const BusinessVerification = () => {
       try {
         await dispatch(fetchAllBusinessVerification());
       } catch (err) {
+        toast(err, { style: { background: "red" } });
         console.error("Error fetching business verification details:", err);
       }
     };
     businessVerificationDetails();
   }, []);
 
+  const { loading } = useSelector(
+    (state) => state.businessVerification.loading
+  );
+
   const allDetails = useSelector(
-    (state) => state.businessVerification.businessVerifications
+    (state) => state.businessVerification?.businessVerifications
   );
 
   const businessDetails = allDetails.filter((detail) => detail.page?.isCreator);
@@ -58,7 +64,9 @@ const BusinessVerification = () => {
   const location = useLocation();
   const pageName = location.pathname.slice(1);
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="m-[20px]">
       <div className="flex justify-between items-center">
         <Header
@@ -234,6 +242,9 @@ const BusinessVerification = () => {
             ))}
           </tbody>
         </table>
+        <p className="text-center pt-3 text-md text-gray-400">
+          {businessDetails.length === 0 && "No Business Verification Request"}
+        </p>
       </div>
     </div>
   );

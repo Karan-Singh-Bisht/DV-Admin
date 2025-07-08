@@ -6,6 +6,7 @@ import FeedsCard from "../../components/FeedsCard";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFeeds } from "../../state/Feed/feedSlice";
+import Loader from "../../components/Loader";
 
 const Feed = () => {
   const search = useLocation();
@@ -15,12 +16,14 @@ const Feed = () => {
   const dispatch = useDispatch();
   const [platform, setPlatform] = useState("");
   const [type, setType] = useState("");
+  const { loading } = useSelector((state) => state.feed);
 
   useEffect(() => {
     const fetchAllFeeds = async () => {
       try {
         await dispatch(fetchFeeds());
       } catch (error) {
+        toast(error, { style: { background: "red" } });
         console.error("Failed to fetch users:", error);
       }
     };
@@ -48,7 +51,9 @@ const Feed = () => {
     return matchesSearch && matchesPlatform;
   });
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="p-4 min-h-screen">
       {/* Header + Button */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
